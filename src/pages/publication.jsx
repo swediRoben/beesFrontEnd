@@ -1,0 +1,109 @@
+import React, { useEffect, useState } from "react";
+import styles from "./menu.module.css";
+import Menu from "./menu.jsx"
+import Fooler from "./fooler.jsx";
+import {getAllPublications} from "../services/publicationServices"
+const Publication = () => { 
+    const [datas, setDatas] = useState({data:[]});
+    const [page,setPage]=useState(1);  
+   const dataPublication =async (page,size)=>{ 
+        const data=await getAllPublications(page,size);  
+        setDatas(data) 
+      } 
+
+    const addPage=(val)=>{ 
+        dataPublication(val,9)
+        setPage(val);
+    } 
+    useEffect(() => {
+    dataPublication(page,9) 
+    },[page]);
+  return (
+    <div className={styles.body}> 
+      <Menu/>
+
+   <section className={styles["filter-section"]}>
+        <div className={`${styles.container}`}>
+            <div className={styles["filter-buttons"]}>
+                <button className={`${styles["filter-btn"]} ${styles.active}`} onclick="filterPublications('all')">Tous</button>
+                <button className={styles["filter-btn"]} onclick="filterPublications('report')">Rapports</button>
+                <button className={styles["filter-btn"]} onclick="filterPublications('news')">Actualités</button>
+                <button className={styles["filter-btn"]} onclick="filterPublications('study')">Études</button>
+                <button className={styles["filter-btn"]} onclick="filterPublications('newsletter')">Newsletter</button>
+                <button className={styles["filter-btn"]} onclick="filterPublications('testimonial')">Témoignages</button>
+            </div>
+        </div>
+    </section>  
+
+    <section className={styles["page-header"]} style={{backgroundImage:` url('/public/fondEcran.svg')`}}>
+          <div className={styles["page-header-back"]}></div> 
+        <div className={styles["container"]}>
+            <h1>Publications & Actualités</h1>
+            <p>Restez informés de nos dernières actions et découvertes</p>
+        </div>
+    </section>
+
+ 
+
+  
+    <section className={styles["publications-section"]}>
+        <div className={`${styles.container}`}>
+            <div className={styles["publications-grid"]} id={styles["publications-grid"]}>
+
+           {datas.data?.map((element) => (
+               
+                <div className={styles["publication-card"]} data-category="report">
+                 {element.typeFichier === "IMAGES" && (
+                  <img
+                    src={element.fichier}
+                    alt={element.title}
+                    
+                  />
+                )}
+
+                {element.typeFichier === "VIDEO" && (
+
+                  <iframe  
+                   src={element.fichier}
+                   title={element.title}
+                   frameborder="0" 
+                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen>
+                
+                   </iframe> 
+                   
+                )} 
+                   
+                    <div className={styles["publication-content"]}>
+                        <div className={styles["publication-meta"]}>
+                            <span className={`${styles["category-badge"]} ${styles.report}`}>{element.type}</span>
+                            <span className={styles["date"]}>{element.date.slice(0,10)}</span>
+                        </div>
+                        <h3>{element.title}</h3>
+                        <p>{element.contenu.slice(0,200)} ...</p>
+                        <div className={styles["publication-footer"]}>
+                             {element.typeFichier === "PDF"? ( 
+                            <a href={element.fichier}  className={styles["link-arrow"]}>Télécharger →</a>
+                                ): ( 
+                            <a href={element.id}  className={styles["link-arrow"]}>Voir plus →</a>
+                                )} 
+                        </div>
+                    </div>
+                </div>
+                       ))}
+
+                 
+            </div>
+         </div>
+      </section>
+         
+             
+            <div className={styles["load-more-section"]}>
+                <button className={`${styles["btn"]} ${styles.primary}`} onClick={()=>addPage(page+1)} title="page">Charger Plus d'Articles</button>
+            </div>  
+      <Fooler/>    
+  </div>
+  );
+};
+
+export default Publication; 
