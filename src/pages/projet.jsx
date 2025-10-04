@@ -7,15 +7,29 @@ import {getAllProjets} from "../services/projectServices.jsx"
 const Projet = () => {
         const [datas, setDatas] = useState({data:[]});
     const [page,setPage]=useState(1);  
+    const [secteur,setSecteur]=useState(null);  
    const dataProject =async (page,size)=>{ 
-        const data=await getAllProjets(page,size);   
+        const data=await getAllProjets(null,page,size);   
         setDatas(data) 
       } 
 
     const addPage=(val)=>{ 
-        dataProject(val,6)
+        fecthDataBys(secteur,val,6)
         setPage(val);
     } 
+
+    const fecthDataBys=async (secteur,page,size)=>{ 
+        setSecteur(secteur)
+        if (secteur!==null) { 
+        const data=await getAllProjets(secteur,page,size);   
+        setDatas(data)
+        }else{ 
+        const data=await getAllProjets(null,page,size);   
+        setDatas(data)   
+        }
+         
+    }
+    
     useEffect(() => {
     dataProject(page,6) 
     },[page]);
@@ -35,12 +49,11 @@ const Projet = () => {
 
          <section className={styles["filter-section"]}>
               <div className={`${styles.container}`}>
-                  <div className={styles["filter-buttons"]}>
-                      <button className={`${styles["filter-btn"]} ${styles.active}`} onclick="filterPublications('all')">Tous les Projets</button>
-                      <button className={styles["filter-btn"]} onclick="filterPublications('education')">Éducation</button>
-                      <button className={styles["filter-btn"]} onclick="filterPublications('health')">Santé</button>
-                      <button className={styles["filter-btn"]} onclick="filterPublications('study')">Études</button>
-                      <button className={styles["filter-btn"]} onclick="filterPublications('environment')">Environnement</button> 
+                  <div className={styles["filter-buttons"]} onClick={()=>fecthDataBys(null,page,9)}>
+                      <button className={`${styles["filter-btn"]} ${styles.active}`} onclick={()=>fecthDataBys(null,page,9)}>Tous les Projets</button>
+                      <button className={styles["filter-btn"]} onClick={()=>fecthDataBys("EDUCATION",page,9)}>Éducation</button>
+                      <button className={styles["filter-btn"]} onClick={()=>fecthDataBys("SENTE",page,9)}>Santé</button> 
+                      <button className={styles["filter-btn"]} onClick={()=>fecthDataBys("ENVIRONEMENT",page,9)}>Environnement</button> 
                   </div>
               </div>
           </section>  
@@ -49,12 +62,10 @@ const Projet = () => {
     <section className={styles["page-header"]} style={{backgroundImage:` url('/public/fondEcran.svg')`}}>
           <div className={styles["page-header-back"]}></div> 
         <div className={styles["container"]}>
-            <h1>Publications & Actualités</h1>
-            <p>Restez informés de nos dernières actions et découvertes</p>
+            <h1>Nos Projets</h1>
+            <p>Restez informés sur nos projets en action</p>
         </div>
     </section>
-
- 
 
   
     <section className={styles["publications-section"]}>
@@ -126,7 +137,7 @@ const Projet = () => {
                                 <div className={ styles["progress-fill"]} style={{width: `${element.avencement}`+"%"}}></div>
                             </div>
                         </div>
-
+                        <br />
                         <div className={styles["publication-footer"]}>
                              {element.typeFichier === "PDF"? ( 
                             <a href={element.fichier}  className={styles["link-arrow"]}>Télécharger →</a>
@@ -144,9 +155,21 @@ const Projet = () => {
       </section>
          
              
-            <div className={styles["load-more-section"]}>
-                <button className={`${styles["btn"]} ${styles.primary}`} onClick={()=>addPage(page+1)} title="page">Charger Plus d'Articles</button>
-            </div>  
+         <div className={styles["load-more-section"]}>
+                           { page>1?(
+                  <div style={{
+                                display:"flex",
+                                gap:4,
+                                justifyContent:"center"
+                  }}>
+                <button className={`${styles["btn"]} ${styles.secondary}`} onClick={()=>addPage(page-1)} title="page">Retour...</button>
+                <button className={`${styles["btn"]} ${styles.secondary}`} onClick={()=>addPage(page+1)} title="page">Charger plus...</button>
+            
+                </div>
+                ):
+                <button className={`${styles["btn"]} ${styles.secondary}`} onClick={()=>addPage(page+1)} title="page">Charger plus...</button>
+                }
+         </div> 
  
       <Fooler/>    
         </div>

@@ -5,32 +5,44 @@ import Fooler from "./fooler.jsx";
 import {getAllPublications} from "../services/publicationServices"
 const Publication = () => { 
     const [datas, setDatas] = useState({data:[]});
-    const [page,setPage]=useState(1);  
+    const [page,setPage]=useState(1); 
+        const [type,setType]=useState(null);   
    const dataPublication =async (page,size)=>{ 
-        const data=await getAllPublications(page,size);  
+        const data=await getAllPublications(null,page,size);  
         setDatas(data) 
       } 
 
-    const addPage=(val)=>{ 
-        dataPublication(val,9)
+  const addPage=(val)=>{ 
+        fecthDataBy(type,val,6)
         setPage(val);
     } 
+
+    const fecthDataBy=async (type,page,size)=>{
+        setType(type)
+        if (type!==null) {
+        const data=await getAllPublications(type,page,size);   
+        setDatas(data)
+        }else{
+        const data=await getAllPublications(null,page,size);   
+        setDatas(data)   
+        }
+         
+    }
     useEffect(() => {
     dataPublication(page,9) 
     },[page]);
   return (
-    <div className={styles.body}> 
+    <div className={styles.contenerprojet}> 
       <Menu/>
 
    <section className={styles["filter-section"]}>
         <div className={`${styles.container}`}>
             <div className={styles["filter-buttons"]}>
-                <button className={`${styles["filter-btn"]} ${styles.active}`} onclick="filterPublications('all')">Tous</button>
-                <button className={styles["filter-btn"]} onclick="filterPublications('report')">Rapports</button>
-                <button className={styles["filter-btn"]} onclick="filterPublications('news')">Actualités</button>
-                <button className={styles["filter-btn"]} onclick="filterPublications('study')">Études</button>
-                <button className={styles["filter-btn"]} onclick="filterPublications('newsletter')">Newsletter</button>
-                <button className={styles["filter-btn"]} onclick="filterPublications('testimonial')">Témoignages</button>
+                <button className={`${styles["filter-btn"]} ${styles.active}`} onClick={()=>fecthDataBy(null,page,9)}>Tous</button>
+                <button className={styles["filter-btn"]} onClick={()=>fecthDataBy("RAPPORTS",page,9)}>Rapports</button>
+                <button className={styles["filter-btn"]} onClick={()=>fecthDataBy("ACTUALITES",page,9)}>Actualités</button> 
+                <button className={styles["filter-btn"]} onClick={()=>fecthDataBy("NEWSLETTER",page,9)}>Newsletter</button>
+                <button className={styles["filter-btn"]} onClick={()=>fecthDataBy("TEMOIGNAGE",page,9)}>Témoignages</button>
             </div>
         </div>
     </section>  
@@ -97,10 +109,22 @@ const Publication = () => {
          </div>
       </section>
          
-             
-            <div className={styles["load-more-section"]}>
-                <button className={`${styles["btn"]} ${styles.primary}`} onClick={()=>addPage(page+1)} title="page">Charger Plus d'Articles</button>
-            </div>  
+ 
+                       <div className={styles["load-more-section"]}>
+                           { page>1?(
+                            <div style={{
+                                display:"flex",
+                                gap:4,
+                                justifyContent:"center"
+                            }}>
+                            <button className={`${styles["btn"]} ${styles.secondary}`} onClick={()=>addPage(page-1)} title="page">Retour...</button>
+                             <button className={`${styles["btn"]} ${styles.secondary}`} onClick={()=>addPage(page+1)} title="page">Charger plus...</button>
+            
+                            </div>
+                           ):
+                             <button className={`${styles["btn"]} ${styles.secondary}`} onClick={()=>addPage(page+1)} title="page">Charger plus...</button>
+                             }
+                        </div>  
       <Fooler/>    
   </div>
   );

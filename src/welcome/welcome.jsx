@@ -377,10 +377,18 @@ const {
           <input type="text" {...registerProjet("devise")} placeholder="Entrez la devise..." />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="avancement">Avancement du projet (%)</label>
-          <input type="text" {...registerProjet("avencement")} placeholder="Pourcentage..." />
-        </div>
+          <div className="form-group">
+            <label htmlFor="avancement">Avancement du projet (%)</label>
+            <input
+              type="number"
+              {...registerProjet("avancement", {
+                min: { value: 0, message: "Le minimum est 0" },
+                max: { value: 100, message: "Le maximum est 100" },
+              })}
+              placeholder="Pourcentage..."
+            />
+          </div>
+
 
         <div className="form-group">
           <label htmlFor="debut">Date début</label>

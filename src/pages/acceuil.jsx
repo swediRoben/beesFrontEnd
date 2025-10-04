@@ -13,6 +13,14 @@ const Acceuil = () => {
  useEffect(() => {
           dataPublication(1,3) 
           }, []);
+
+    const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("fr-FR", { 
+    month: "long",
+    year: "numeric"
+  });
+};
   return (
     <div className={styles.body}> 
       <Menu/>
@@ -117,45 +125,87 @@ const Acceuil = () => {
             <p>Découvrez quelques-uns de nos projets qui transforment des vies</p>
           </div>
 
-          <div className={styles["projects-grid"]}>
-
-             {datas.data?.map((element) => ( 
-            <div className={styles["project-card"]}>
-                 {element.typeFichier === "IMAGES" && (
-                  <img
-                    src={element.fichier}
-                    alt={element.title}
+              <div className={styles["publications-grid"]} id={styles["publications-grid"]}>
+     
+                {datas.data?.map((element) => (
                     
-                  />
-                )}
-
-                {element.typeFichier === "VIDEO" && (
-
-                  <iframe  
-                   src={element.fichier}
-                   title={element.title}
-                   frameborder="0" 
-                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen>
-                
-                   </iframe> 
+                     <div className={styles["publication-card"]} data-category="report">
+                      {element.typeFichier === "IMAGES" && (
+                       <img
+                         src={element.fichier}
+                         alt={element.title}
+                         
+                       />
+                     )}
+     
+                     {element.typeFichier === "VIDEO" && (
+     
+                       <iframe  
+                        src={element.fichier}
+                        title={element.title}
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"
+                       allowfullscreen>
+                     
+                        </iframe> 
+                        
+                     )} 
+                        
+                         <div className={styles["publication-content"]}>
                    
-                )}
-              <div className={styles["project-content"]}>
-                <h3>{element.title.slice(0,60)} ...</h3>
-                <p>
-                  {element.contenu.slice(0,100)} ...
-                </p>
-                <div className={styles["project-footer"]}>
-                  <span className={styles.progress}>avencement : {element.avencement} %</span>
-                  <a href="#" className={styles["link-arrow"]}>
-                    En savoir plus →
-                  </a>
-                </div>
-              </div>
-            </div>
-             ))} 
-          </div>
+                           <div className={ styles["publication-meta"]}>
+                                 <span className={`${styles["category-badge"]} ${styles.testimonial}`}>{element.secteur}</span>
+                                 <span className={`${styles["category-badge"]} ${styles.news}`} >{element.status}</span>
+                             </div>
+                             <h3>{element.title}</h3>
+                             <p>{element.contenu.slice(0,120)} ...</p>
+     
+                             
+                             <div className={ styles["project-stats"]}>
+                                 <div className={ styles["stat-item"]}>
+                                     <span className={ styles["stat-icon"]}>👥</span>
+                                     <div>
+                                         <div className={ styles["stat-number"]}>{element.beneficier}</div>
+                                         <div className={ styles["stat-label"]}>Bénéficiaires</div>
+                                     </div> <br />
+                                     <span className={ styles["stat-icon"]}>💰</span>
+                                     <div>
+                                         <div className={ styles["stat-number"]}>{element.budget} {element.devise}</div>
+                                         <div className={ styles["stat-label"]}>Budget</div>
+                                     </div>
+                                 </div>
+                                 <div className={ styles["stat-item"]}>
+                                     <span className={ styles["stat-icon"]}>📅</span>
+                                     <div>
+                                         <div className={ styles["stat-number"]}>{formatDate(element.debut)} à {formatDate(element.fin)}</div>
+                                         <div className={ styles["stat-label"]}>Année</div>
+                                     </div>
+                                 </div>
+                             </div>
+     
+                             <div className={ styles["progress-section"]}>
+                                 <div className={ styles["progress-header"]}>
+                                     <span>Avancement</span>
+                                     <span className={ styles["progress-percentage"]}>{element.avencement}%</span>
+                                 </div>
+                                 <div className={ styles["progress-bar"]}>
+                                     <div className={ styles["progress-fill"]} style={{width: `${element.avencement}`+"%"}}></div>
+                                 </div>
+                             </div>
+                             <br />
+                             <div className={styles["publication-footer"]}>
+                                  {element.typeFichier === "PDF"? ( 
+                                 <a href={element.fichier}  className={styles["link-arrow"]}>Télécharger →</a>
+                                     ): ( 
+                                 <a href={element.id}  className={styles["link-arrow"]}>Voir plus →</a>
+                                     )} 
+                             </div>
+                         </div>
+                     </div>
+                            ))}
+     
+                      
+                 </div>
         </div>
       </section>
 

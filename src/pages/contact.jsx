@@ -168,7 +168,7 @@ const Contact = () => {
             <div className={styles["map-placeholder"]}>
                 <div className={styles["map-content"]}>
                     <div className={styles["map-icon"]}>🗺️</div>
-                    <h3>Siège Social Uvirq</h3>
+                    <h3>Siège Social Uvira</h3>
                     <p>123 Avenue plage d'or<br/>Uvira, Commune de Kalundu</p>
                     <p className={styles["map-note"]}>RDC / SUD KIVU </p>
                 </div>

@@ -5,10 +5,11 @@ import axios from "axios";
 const API_URL = "http://localhost:3000/api/projets";
 
 // ✅ Récupérer tous les projets avec pagination
-export const getAllProjets = async (page = 1, size = 10) => {
+export const getAllProjets = async (secteur=null,page = 1, size = 10) => {
   try {
+    
     const response = await axios.get(API_URL, {
-      params: { page, size },
+      params: { secteur ,page, size },
     });  
     return response.data;
   } catch (error) {

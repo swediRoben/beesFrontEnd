@@ -1,10 +1,53 @@
 import React, { useState } from "react";
 import styles from "./menu.module.css";
+import { Link } from "react-router-dom";
+
 
 const Menu = () => {
   const [toggleMobileMenu, setToggleMobileMenu] = useState(false);
+  const [activation] = useState({
+      index:false,
+      pub:false,
+      projet:false,
+      contact:false,
+      apropos:false
+  }); 
 
-  const toggleMenu = () => {
+  const activationIndex=(e)=>{ 
+      if (e===1) {
+        activation.index=true;
+        activation.pub=false; 
+        activation.projet=false; 
+        activation.contact=false; 
+        activation.apropos=false;  
+      }else if (e===2) {
+        activation.index=false;
+        activation.pub=true; 
+        activation.projet=false; 
+        activation.contact=false; 
+        activation.apropos=false;  
+      }else if (e===3) {
+        activation.index=false;
+        activation.pub=false; 
+        activation.projet=true; 
+        activation.contact=false; 
+        activation.apropos=false;  
+      }else if (e===4) {
+        activation.index=false;
+        activation.pub=false; 
+        activation.projet=false; 
+        activation.contact=false; 
+        activation.apropos=true;  
+      }else if (e===5) {
+        activation.index=false;
+        activation.pub=false; 
+        activation.projet=false; 
+        activation.contact=true; 
+        activation.apropos=false;  
+      }
+  }
+  
+  const toggleMenu = () => { 
     setToggleMobileMenu(!toggleMobileMenu);
   };
 
@@ -20,13 +63,12 @@ const Menu = () => {
 
             <nav className={styles.langs} aria-label="Sélecteur de langue">
                 <ul className={styles["lang-list"]} role="list">
-                    <li className={styles["lang-item"]} ><a className={styles["lang-link"]} href="?lang=fr">🇫🇷 Français</a></li>
-                    <li className={styles["lang-item"]} ><a className={styles["lang-link"]} href="?lang=en">🇬🇧 English</a></li>
-                    <li className={styles["lang-item"]} ><a className={styles["lang-link"]} href="?lang=en">🇪🇸 Español</a></li>
+                    <li className={styles["lang-item"]} ><a className={styles["lang-link"]} href="?lang=fr">🇫🇷 <strong>Français</strong></a></li>
+                    <li className={styles["lang-item"]} ><a className={styles["lang-link"]} href="?lang=en">us <strong>English</strong></a></li>
+                    <li className={styles["lang-item"]} ><a className={styles["lang-link"]} href="?lang=en">🇪🇸 <strong>Español</strong></a></li>
  
 
-                    <li className={styles["lang-item"]}><a className={styles["lang-link"]} href="?lang=pt">🇵🇹 Português</a></li>
-                </ul>
+                     </ul>
             </nav>
         </div>
     </header> 
@@ -37,21 +79,21 @@ const Menu = () => {
           <div className={styles["nav-content"]}> 
 
             <div className={styles["nav-logo"]}>
-              <a href="index.html">
+              <Link to="/">
                 <img 
                   src="/public/beeslogo-_1_.svg" 
                   alt="Logo BEES" 
                   className={styles["logo-img"]} 
                 />
-              </a>
+              </Link>
             </div>
 
             <div className={`${styles["nav-links"]} ${styles.desktop}`}>
-              <a href="index.html" className={`${styles["nav-link"]} ${styles.active}`}>Accueil</a>
-              <a href="publications.html" className={styles["nav-link"]}>Publications</a>
-              <a href="projets.html" className={styles["nav-link"]}>Projets</a>
-              <a href="apropos.html" className={styles["nav-link"]}>À Propos</a>
-              <a href="contact.html" className={styles["nav-link"]}>Contact</a>
+              <Link to="/"  className={`${styles["nav-link"]} ${activation.index===true?styles.active:""}`} onClick={()=>activationIndex(1)}>Accueil</Link>
+              <Link to="/pub" className={`${styles["nav-link"]} ${activation.pub===true?styles.active:""}`} onClick={()=>activationIndex(2)}>Publications</Link>
+              <Link to="/projet" className={`${styles["nav-link"]} ${activation.projet===true?styles.active:""}`} onClick={()=>activationIndex(3)}>Projets</Link>
+              <Link to="/apropos" className={`${styles["nav-link"]} ${activation.apropos===true?styles.active:""}`} onClick={()=>activationIndex(4)}>À Propos</Link>
+              <Link to="/contact" className={`${styles["nav-link"]} ${activation.contact===true?styles.active:""}`} onClick={()=>activationIndex(5)}>Contact</Link>
               <button className={styles["btn-donate"]}>Faire un Don</button>
             </div>
 
@@ -62,11 +104,11 @@ const Menu = () => {
 
           {toggleMobileMenu && (
             <div id="mobile-menu" className={styles["mobile-menu"]}>
-              <a href="index.html" className={styles["mobile-link"]}>Accueil</a>
-              <a href="publications.html" className={styles["mobile-link"]}>Publications</a>
-              <a href="projets.html" className={styles["mobile-link"]}>Projets</a>
-              <a href="apropos.html" className={styles["mobile-link"]}>À Propos</a>
-              <a href="contact.html" className={styles["mobile-link"]}>Contact</a>
+              <Link to="/"  className={`${styles["nav-link"]} ${activation.index===true?styles.active:""}`} onClick={()=>activationIndex(1)}>Accueil</Link>
+              <Link to="/pub" className={`${styles["nav-link"]} ${activation.pub===true?styles.active:""}`} onClick={()=>activationIndex(2)}>Publications</Link>
+              <Link to="/projet" className={`${styles["nav-link"]} ${activation.projet===true?styles.active:""}`} onClick={()=>activationIndex(3)}>Projets</Link>
+              <Link to="/apropos" className={`${styles["nav-link"]} ${activation.apropos===true?styles.active:""}`} onClick={()=>activationIndex(4)}>À Propos</Link>
+              <Link to="/contact" className={`${styles["nav-link"]} ${activation.contact===true?styles.active:""}`} onClick={()=>activationIndex(5)}>Contact</Link>
               <button className={`${styles["btn-donate"]} ${styles.mobile}`}>Faire un Don</button>
             </div>
           )}

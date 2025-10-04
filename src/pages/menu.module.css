@@ -46,24 +46,52 @@
 /* je veux quelque chose comme ca */
 
 .contenerprojet {
-    width: 1200%;
+    width: 1200px;
     max-width: 1200px;
     margin: 0 auto;
     box-sizing: border-box;
 }
 
+@media (max-width: 1170px) {
+    .contenerprojet {
+        max-width: 1170px;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 1140px) {
+    .contenerprojet {
+        max-width: 1140px;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 1080px) {
+    .contenerprojet {
+        width: 100%;
+    }
+}
+
 
 /* Tablette large */
 
-@media (max-width: 1200px) {
+@media (max-width: 1046px) {
     .contenerprojet {
-        max-width: 1200px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 920px) {
+    .contenerprojet {
+        width: 100%;
     }
 }
 
 @media (max-width: 860px) {
     .contenerprojet {
-        max-width: 860px;
+        width: 100%;
     }
 }
 
@@ -72,7 +100,8 @@
 
 @media (max-width: 660px) {
     .contenerprojet {
-        max-width: 660px;
+        padding: 4px;
+        width: 100%;
     }
 }
 
@@ -81,7 +110,7 @@
 
 @media (max-width: 480px) {
     .contenerprojet {
-        max-width: 480px;
+        width: 480px;
     }
 }
 
@@ -174,15 +203,22 @@ nav.langs {
     background: rgba(255, 255, 255, .06);
 }
 
+@media (max-width: 660px) {
+    .lang-link strong {
+        display: none;
+    }
+}
+
 
 /* Icône caret pour indiquer qu'il y a un sous-menu */
 
-.lang-item.has-submenu>.lang-link::after {
+
+/* .lang-item>.lang-link::after {
     content: "▾";
     font-size: .9rem;
     line-height: 1;
     opacity: .8;
-}
+} */
 
 
 /* --- Sous-menu --- */
@@ -461,7 +497,7 @@ main {
 }
 
 .mobile-menu {
-    display: none;
+    display: flex;
     background: var(--neutral-light);
     padding: 20px;
     flex-direction: column;
@@ -587,8 +623,8 @@ main {
 
 .btn.secondary {
     background: transparent;
-    color: var(--white);
-    border-color: var(--white);
+    color: var(--accent);
+    border-color: var(--accent);
 }
 
 .btn.secondary:hover {

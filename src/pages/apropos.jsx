@@ -5,7 +5,7 @@ import styles from "./menu.module.css";
 
 const Apropos = () => {
     return (
-        <> 
+        <div className={styles.contenerprojet}> 
       <Menu/>
 
 <section 
@@ -236,7 +236,7 @@ const Apropos = () => {
         </div>
     </section>
       <Fooler/>    
-        </>
+        </div>
     );
 }
 

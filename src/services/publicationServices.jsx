@@ -5,10 +5,10 @@ const API_URL = "http://localhost:3000/api/publications";
  
 
 // ✅ Récupérer tous les projets avec pagination
-export const getAllPublications = async (page = 1, size = 10) => {
+export const getAllPublications = async (type=null,page = 1, size = 10) => {
   try {
     const response = await axios.get(`${API_URL}/`, {
-      params: { page, size },
+      params: { type, page, size },
     });  
     return response.data;
   } catch (error) {
