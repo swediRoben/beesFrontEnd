@@ -6,8 +6,10 @@ import {getAllPublications} from "../services/publicationServices"
 
 const Publication = () => {  
     const [datas, setDatas] = useState({data:[]});
+    const [sousmenu, setSousmanu] =useState("")
     const [page,setPage]=useState(1); 
-        const [type,setType]=useState(null);   
+    const [type,setType]=useState(null); 
+
    const dataPublication =async (page,size)=>{ 
         const data=await getAllPublications(null,page,size);  
         setDatas(data) 
@@ -21,11 +23,13 @@ const Publication = () => {
     const fecthDataBy=async (type,page,size)=>{
         setType(type)
         if (type!==null) {
-        const data=await getAllPublications(type,page,size);   
-        setDatas(data)
+            const data=await getAllPublications(type,page,size);   
+            setDatas(data)
+            setSousmanu(type)
         }else{
         const data=await getAllPublications(null,page,size);   
         setDatas(data)   
+        setSousmanu("")
         }
          
     }
@@ -40,11 +44,11 @@ const Publication = () => {
    <section className={styles["filter-section"]}>
         <div className={`${styles.container}`}>
             <div className={styles["filter-buttons"]}>
-                <button className={`${styles["filter-btn"]} ${styles.active}`} onClick={()=>fecthDataBy(null,1,6)}>Tous</button>
-                <button className={styles["filter-btn"]} onClick={()=>fecthDataBy("RAPPORTS",1,6)}>Rapports</button>
-                <button className={styles["filter-btn"]} onClick={()=>fecthDataBy("ACTUALITES",1,6)}>Actualités</button> 
-                <button className={styles["filter-btn"]} onClick={()=>fecthDataBy("NEWSLETTER",1,6)}>Newsletter</button>
-                <button className={styles["filter-btn"]} onClick={()=>fecthDataBy("TEMOIGNAGE",1,6)}>Témoignages</button>
+                <button className={`${styles["filter-btn"]} ${sousmenu==""?styles.active:""}`} onClick={()=>fecthDataBy(null,1,6)}>Tous</button>
+                <button className={`${styles["filter-btn"]} ${sousmenu=="RAPPORTS"?styles.active:""}`} onClick={()=>fecthDataBy("RAPPORTS",1,6)}>Rapports</button>
+                <button className={`${styles["filter-btn"]} ${sousmenu=="ACTUALITES"?styles.active:""}`} onClick={()=>fecthDataBy("ACTUALITES",1,6)}>Actualités</button> 
+                <button className={`${styles["filter-btn"]} ${sousmenu=="NEWSLETTER"?styles.active:""}`} onClick={()=>fecthDataBy("NEWSLETTER",1,6)}>Newsletter</button>
+                <button className={`${styles["filter-btn"]} ${sousmenu=="TEMOIGNAGE"?styles.active:""}`} onClick={()=>fecthDataBy("TEMOIGNAGE",1,6)}>Témoignages</button>
             </div>
         </div>
     </section>  

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import styles from "./menu.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 
 const Menu = () => {
+ const location = useLocation();
   const [toggleMobileMenu, setToggleMobileMenu] = useState(false);
   const [activation] = useState({
       index:false,
@@ -88,12 +89,12 @@ const Menu = () => {
               </Link>
             </div>
 
-            <div className={`${styles["nav-links"]} ${styles.desktop}`}>
-              <Link to="/"  className={`${styles["nav-link"]} ${activation.index===true?styles.active:""}`} onClick={()=>activationIndex(1)}>Accueil</Link>
-              <Link to="/pub" className={`${styles["nav-link"]} ${activation.pub===true?styles.active:""}`} onClick={()=>activationIndex(2)}>Publications</Link>
-              <Link to="/projet" className={`${styles["nav-link"]} ${activation.projet===true?styles.active:""}`} onClick={()=>activationIndex(3)}>Projets</Link>
-              <Link to="/apropos" className={`${styles["nav-link"]} ${activation.apropos===true?styles.active:""}`} onClick={()=>activationIndex(4)}>À Propos</Link>
-              <Link to="/contact" className={`${styles["nav-link"]} ${activation.contact===true?styles.active:""}`} onClick={()=>activationIndex(5)}>Contact</Link>
+            <div className={`${styles["nav-links"]} ${styles.desktop}`}> 
+              <Link to="/"  className={`${styles["nav-link"]}  ${location.pathname === "/" ? styles.active : ""}`} onClick={()=>activationIndex(1)}>Accueil</Link>
+              <Link to="/pub" className={`${styles["nav-link"]} ${location.pathname === "/pub" ? styles.active : ""}`} onClick={()=>activationIndex(2)}>Publications</Link>
+              <Link to="/projet" className={`${styles["nav-link"]} ${location.pathname === "/projet" ? styles.active : ""}`} onClick={()=>activationIndex(3)}>Projets</Link>
+              <Link to="/apropos" className={`${styles["nav-link"]} ${location.pathname === "/apropos" ? styles.active : ""}`} onClick={()=>activationIndex(4)}>À Propos</Link>
+              <Link to="/contact" className={`${styles["nav-link"]} ${location.pathname === "/contact" ? styles.active : ""}`} onClick={()=>activationIndex(5)}>Contact</Link>
               <button className={styles["btn-donate"]}>Faire un Don</button>
             </div>
 

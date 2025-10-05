@@ -5,34 +5,26 @@ import Fooler from "./fooler.jsx";
 import {getAllProjets} from "../services/projectServices.jsx"
 
 const Projet = () => {
-        const [datas, setDatas] = useState({data:[]});
+    const [datas, setDatas] = useState({data:[]});
     const [page,setPage]=useState(1);  
     const [secteur,setSecteur]=useState(null);  
-   const dataProject =async (page,size)=>{ 
-        const data=await getAllProjets(null,page,size);   
-        setDatas(data) 
-      } 
+    const [sousmenu, setSousmanu] =useState("") 
 
-    const addPage=(val)=>{ 
-        fecthDataBys(secteur,val,6)
+    const addPage=(val)=>{  
         setPage(val);
     } 
-
-    const fecthDataBys=async (secteur,page,size)=>{ 
-        setSecteur(secteur)
-        if (secteur!==null) { 
-        const data=await getAllProjets(secteur,page,size);   
-        setDatas(data)
-        }else{ 
-        const data=await getAllProjets(null,page,size);   
-        setDatas(data)   
-        }
-         
-    }
+ 
     
-    useEffect(() => {
-    dataProject(page,6) 
-    },[page]);
+useEffect(() => {
+  const fetch = async () => {
+    const data = await getAllProjets(secteur, page, 6);
+    setDatas(data);
+  };
+  fetch();
+}, [secteur, page]);
+
+
+
 
   const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -47,16 +39,53 @@ const Projet = () => {
     <div className={styles.contenerprojet}> 
       <Menu/>
 
-         <section className={styles["filter-section"]}>
-              <div className={`${styles.container}`}>
-                  <div className={styles["filter-buttons"]} onClick={()=>fecthDataBys(null,page,9)}>
-                      <button className={`${styles["filter-btn"]} ${styles.active}`} onclick={()=>fecthDataBys(null,page,9)}>Tous les Projets</button>
-                      <button className={styles["filter-btn"]} onClick={()=>fecthDataBys("EDUCATION",page,9)}>Éducation</button>
-                      <button className={styles["filter-btn"]} onClick={()=>fecthDataBys("SENTE",page,9)}>Santé</button> 
-                      <button className={styles["filter-btn"]} onClick={()=>fecthDataBys("ENVIRONEMENT",page,9)}>Environnement</button> 
-                  </div>
-              </div>
-          </section>  
+<section className={styles["filter-section"]}>
+  <div className={styles.container}>
+    <div className={styles["filter-buttons"]}>
+      <button
+        className={`${styles["filter-btn"]} ${sousmenu === "" ? styles.active : ""}`}
+        onClick={() => {
+          setSecteur(null);
+          setSousmanu("");
+          setPage(1);
+        }}
+      >
+        Tous les Projets
+      </button>
+      <button
+        className={`${styles["filter-btn"]} ${sousmenu === "EDUCATION" ? styles.active : ""}`}
+        onClick={() => {
+          setSecteur("EDUCATION");
+          setSousmanu("EDUCATION");
+          setPage(1);
+        }}
+      >
+        Éducation
+      </button>
+      <button
+        className={`${styles["filter-btn"]} ${sousmenu === "SANTE" ? styles.active : ""}`}
+        onClick={() => {
+          setSecteur("SANTE");
+          setSousmanu("SANTE");
+          setPage(1);
+        }}
+      >
+        Santé
+      </button>
+      <button
+        className={`${styles["filter-btn"]} ${sousmenu === "ENVIRONEMENT" ? styles.active : ""}`}
+        onClick={() => {
+          setSecteur("ENVIRONNEMENT");
+          setSousmanu("ENVIRONNEMENT");
+          setPage(1);
+        }}
+      >
+        Environnement
+      </button>
+    </div>
+  </div>
+</section>
+ 
   
 
     <section className={styles["page-header"]} style={{backgroundImage:` url('/public/fondEcran.svg')`}}>
