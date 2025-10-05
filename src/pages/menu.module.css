@@ -1219,6 +1219,23 @@ section {
 .date {
     font-size: 14px;
     color: var(--neutral-medium);
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.2px;
+}
+
+.date::before {
+    content: "📅";
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.publication-card iframe {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
 }
 
 .publication-content h3 {

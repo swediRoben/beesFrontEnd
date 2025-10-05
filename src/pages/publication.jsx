@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import styles from "./menu.module.css";
 import Menu from "./menu.jsx"
 import Fooler from "./fooler.jsx";
-import {getAllPublications} from "../services/publicationServices"
-const Publication = () => { 
+import {getAllPublications} from "../services/publicationServices" 
+
+const Publication = () => {  
     const [datas, setDatas] = useState({data:[]});
     const [page,setPage]=useState(1); 
         const [type,setType]=useState(null);   
@@ -28,8 +29,9 @@ const Publication = () => {
         }
          
     }
-    useEffect(() => {
-    dataPublication(page,9) 
+ 
+     useEffect(() => {
+    dataPublication(page,6) 
     },[page]);
   return (
     <div className={styles.contenerprojet}> 
@@ -38,11 +40,11 @@ const Publication = () => {
    <section className={styles["filter-section"]}>
         <div className={`${styles.container}`}>
             <div className={styles["filter-buttons"]}>
-                <button className={`${styles["filter-btn"]} ${styles.active}`} onClick={()=>fecthDataBy(null,page,9)}>Tous</button>
-                <button className={styles["filter-btn"]} onClick={()=>fecthDataBy("RAPPORTS",page,9)}>Rapports</button>
-                <button className={styles["filter-btn"]} onClick={()=>fecthDataBy("ACTUALITES",page,9)}>Actualités</button> 
-                <button className={styles["filter-btn"]} onClick={()=>fecthDataBy("NEWSLETTER",page,9)}>Newsletter</button>
-                <button className={styles["filter-btn"]} onClick={()=>fecthDataBy("TEMOIGNAGE",page,9)}>Témoignages</button>
+                <button className={`${styles["filter-btn"]} ${styles.active}`} onClick={()=>fecthDataBy(null,1,6)}>Tous</button>
+                <button className={styles["filter-btn"]} onClick={()=>fecthDataBy("RAPPORTS",1,6)}>Rapports</button>
+                <button className={styles["filter-btn"]} onClick={()=>fecthDataBy("ACTUALITES",1,6)}>Actualités</button> 
+                <button className={styles["filter-btn"]} onClick={()=>fecthDataBy("NEWSLETTER",1,6)}>Newsletter</button>
+                <button className={styles["filter-btn"]} onClick={()=>fecthDataBy("TEMOIGNAGE",1,6)}>Témoignages</button>
             </div>
         </div>
     </section>  

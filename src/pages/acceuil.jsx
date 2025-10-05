@@ -6,7 +6,7 @@ import {getAllProjets} from "../services/projectServices.jsx"
 const Acceuil = () => { 
     const [datas, setDatas] = useState({data:[]}); 
    const dataPublication =async (page,size)=>{ 
-        const data=await getAllProjets(page,size);  
+        const data=await getAllProjets(null,page,size);  
         setDatas(data) 
       }
 

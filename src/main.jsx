@@ -11,6 +11,7 @@ import Contact from './pages/contact.jsx'
 import Publication from './pages/publication.jsx';
 import { createBrowserRouter,RouterProvider } from 'react-router-dom' 
 import { Toaster } from 'react-hot-toast';
+import Plus from './pages/plus.jsx';
 
 const router=createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router=createBrowserRouter([
    {
     path:'contact',
     element:<Contact/>
+  },
+   {
+    path:'plus',
+    element:<Plus/>
   },
   {
     path:'*',
