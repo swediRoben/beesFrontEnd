@@ -3,8 +3,7 @@ import styles from "./menu.module.css";
 import "./plus.style.css"; 
 import Menu from "./menu.jsx"
 import Fooler from "./fooler.jsx";
-import { useLocation } from "react-router-dom";
-// import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom"; 
 
 const Plus = () => { 
   const location = useLocation();
@@ -25,7 +24,7 @@ const Plus = () => {
         <Menu/>
 
     <div className="detail-page-container"> 
-
+       {data && (
       <main className="detail-page">
         
             {data.typeFichier === "IMAGES" && (
@@ -51,7 +50,7 @@ const Plus = () => {
                 )}
         <div className="detail-content">
           <h2>{data.title}</h2>
-          <p className="detail-date">Publié le {data.date}</p>
+          <p className="detail-date">Publié le {data.date.slice(0,10)}</p>
           <p className="voir-plus-text">
             {data.contenu}
           </p>
@@ -89,7 +88,9 @@ const Plus = () => {
           </div>
         </div> 
       </main>
+      )}
     </div>
+    
     <Fooler/>
     </div>
   );
