@@ -3,6 +3,7 @@ import styles from "./menu.module.css";
 import Menu from "./menu.jsx"
 import Fooler from "./fooler.jsx";
 import {getAllProjets} from "../services/projectServices.jsx"
+import { Link } from "react-router-dom";
 const Acceuil = () => { 
     const [datas, setDatas] = useState({data:[]}); 
    const dataPublication =async (page,size)=>{ 
@@ -197,13 +198,13 @@ const Acceuil = () => {
                                   {element.typeFichier === "PDF"? ( 
                                  <a href={element.fichier}  className={styles["link-arrow"]}>Télécharger →</a>
                                      ): ( 
-                                 <a href={element.id}  className={styles["link-arrow"]}>Voir plus →</a>
-                                     )} 
+                                   <Link to="/plus" state={{ data: element }}  className={styles["link-arrow"]}>Voir plus →</Link>
+                                )} 
                              </div>
                          </div>
                      </div>
                             ))}
-     
+      <Link to="/projet"  className={styles["link-voir-tous"]}>Voir tous nos projet →</Link>
                       
                  </div>
         </div>

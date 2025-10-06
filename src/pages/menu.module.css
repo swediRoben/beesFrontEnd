@@ -1998,6 +1998,13 @@ section {
     text-align: center;
 }
 
+.link-voir-tous {
+    color: green;
+    text-align: center;
+    text-decoration: none;
+    list-style: none;
+}
+
 .mb-4 {
     margin-bottom: 16px;
 }
