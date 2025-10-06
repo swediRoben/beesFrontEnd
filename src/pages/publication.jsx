@@ -106,7 +106,8 @@ const Publication = () => {
                              {element.typeFichier === "PDF"? ( 
                             <a href={element.fichier}  className={styles["link-arrow"]}>Télécharger →</a>
                                 ): ( 
-                            <Link to="/plus/{`${element.id}}"  className={styles["link-arrow"]}>Voir plus →</Link>
+                            // <Link to={`/plus/${element.id}`}  className={styles["link-arrow"]}>Voir plus →</Link>
+                            <Link to="/plus" state={{ data: element }}  className={styles["link-arrow"]}>Voir plus →</Link>
                                 )} 
                         </div>
                     </div>

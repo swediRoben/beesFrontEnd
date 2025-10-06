@@ -3,10 +3,12 @@ import styles from "./menu.module.css";
 import "./plus.style.css"; 
 import Menu from "./menu.jsx"
 import Fooler from "./fooler.jsx";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 const Plus = () => { 
-  const {id} =useParams()
+  const location = useLocation();
+  const { data } = location.state || {};
   const copierLien = () => {
     const url = window.location.href;
     navigator.clipboard.writeText(url).then(() => {
@@ -16,7 +18,7 @@ const Plus = () => {
 
   
 
-    console.log(id)
+    console.log(data)
 
   return (
     <div className={styles.contenerprojet}>
@@ -25,25 +27,40 @@ const Plus = () => {
     <div className="detail-page-container"> 
 
       <main className="detail-page">
-        <img
-          src="https://picsum.photos/800/300"
-          alt="Image détail"
-          className="detail-image"
-        />
+        
+            {data.typeFichier === "IMAGES" && (
+                  <img
+                    src={data.fichier}
+                    alt={data.title}
+                   className="detail-image" 
+                  />
+                )}
+
+                {data.typeFichier === "VIDEO" && (
+
+                  <iframe  
+                   src={data.fichier}
+                   title={data.title}
+                   frameborder="0" 
+                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"
+                className="detail-image" 
+               allowfullscreen>
+                
+                   </iframe> 
+                   
+                )}
         <div className="detail-content">
-          <h2>Titre complet de la publication</h2>
-          <p className="detail-date">Publié le 06 Octobre 2025</p>
-          <p>
-            Voici le contenu complet de la publication. Cette page permet d’afficher
-            tout le texte ou les médias associés à une publication sans modal.
-            Elle est responsive et adaptée aux petits écrans pour une lecture fluide.
+          <h2>{data.title}</h2>
+          <p className="detail-date">Publié le {data.date}</p>
+          <p className="voir-plus-text">
+            {data.contenu}
           </p>
 
           {/* Boutons de partage */}
           <div className="share-buttons">
             <span>Partager :</span>
             <a
-              href="https://www.facebook.com/sharer/sharer.php?u=https://votresite.com/details.html?id=1"
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="share-btn fb"
@@ -51,7 +68,7 @@ const Plus = () => {
               Facebook
             </a>
             <a
-              href="https://twitter.com/intent/tweet?url=https://votresite.com/details.html?id=1&text=Titre de la publication"
+              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="share-btn tw"
@@ -59,7 +76,7 @@ const Plus = () => {
               Twitter
             </a>
             <a
-              href="https://wa.me/?text=https://votresite.com/details.html?id=1"
+              href={`https://wa.me/?text=${encodeURIComponent(window.location.href)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="share-btn wa"
@@ -70,7 +87,7 @@ const Plus = () => {
               Copier le lien
             </button>
           </div>
-        </div>
+        </div> 
       </main>
     </div>
     <Fooler/>

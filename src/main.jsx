@@ -47,7 +47,7 @@ const router=createBrowserRouter([
     element:<Contact/>
   },
    {
-    path:'/plus/:id',
+    path:'/plus',
     element:<Plus/>
   },
   {
