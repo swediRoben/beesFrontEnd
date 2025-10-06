@@ -49,7 +49,7 @@ const {
 } = useForm(); 
 
   const dataProject =async (page,size)=>{
-    const data=await getAllProjets(page,size);
+    const data=await getAllProjets(null,page,size);
     setProjetdata(data) 
   } 
 
@@ -59,7 +59,7 @@ const {
   } 
 
   const dataPublication =async (page,size)=>{ 
-    const data=await getAllPublications(page,size);  
+    const data=await getAllPublications(null,page,size);  
     setPubdata(data) 
   } 
 
@@ -333,8 +333,8 @@ const {
           <select {...registerProjet("secteur", { required: true })} defaultValue="">
             <option value="" disabled>Sélectionnez le secteur</option>
             <option value="EDUCATION">EDUCATION</option>
-            <option value="SENTE">SENTE</option>
-            <option value="ENVIRONEMENT">ENVIRONEMENT</option>
+            <option value="SANTE">SANTE</option>
+            <option value="ENVIRONNEMENT">ENVIRONNEMENT</option>
           </select>
         </div>
 

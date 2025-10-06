@@ -2,8 +2,30 @@ import React from 'react';
 import styles from "./menu.module.css";
 import Menu from "./menu.jsx"
 import Fooler from "./fooler.jsx";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast"; 
+import {createContact} from "../services/contactServices.jsx"
 
 const Contact = () => {
+      const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors: errors },
+      } = useForm();
+ 
+  const onSubmitContact = async (data) => {
+          try { 
+             await createContact(data); 
+             toast.success("Message envoyé avec succès !" );
+             reset();  
+          } catch (error) {
+             errors;
+             error;
+            toast.error("Erreur lors de l'envoi, Veuillez vérifier vos informations et réessayer.",{style:{backgroundColor:"red",color:"white"}}); 
+          }
+        };
+
     return (
         <>
       <Menu/> 
@@ -80,76 +102,54 @@ const Contact = () => {
  
                 <div className={styles["contact-form-section"]}>
                     <div className={styles["form-container"]}>
-                        <h2>Envoyez-nous un Message</h2>
-                         
-                        <div id="success-message" className={`${styles["alert"]} ${styles.success} ${styles.hidden}`} >
-                            <span className={styles["alert-icon"]}>✅</span>
-                            <div>
-                                <strong>Message envoyé avec succès !</strong>
-                                <p>Nous vous répondrons dans les plus brefs délais.</p>
-                            </div>
-                        </div>
+                        <h2>Envoyez-nous un Message</h2> 
 
-                        <div id="error-message" className={`${styles["alert"]} ${styles.error} ${styles.hidden}`} >
-                            <span className={styles["alert-icon"]}>❌</span>
-                            <div>
-                                <strong>Erreur lors de l'envoi</strong>
-                                <p>Veuillez vérifier vos informations et réessayer.</p>
-                            </div>
-                        </div>
-
-                        <form id="contact-form" className={styles["contact-form"]}>
+                        <form id="contact-form" className={styles["contact-form"]} onSubmit={handleSubmit(onSubmitContact)}>
                             <div className={styles["form-row"]}>
                                 <div className={styles["form-group"]}>
-                                    <label for="name">Nom complet *</label>
-                                    <input type="text" id="name" name="name" required/>
+                                    <label htmlFor="name">Nom complet *</label>
+                                    <input  {...register("nom", { required: true })}  type="text" id="name"/>
                                     <span className={styles["error-text"]} id="name-error"></span>
                                 </div>
 
                                 <div className={styles["form-group"]}>
-                                    <label for="email">Adresse email *</label>
-                                    <input type="email" id="email" name="email" required/>
+                                    <label htmlFor="email">Adresse email *</label>
+                                    <input type="email"  {...register("email", { required: true })}  id="email"/>
                                     <span className={styles["error-text"]} id="email-error"></span>
                                 </div>
                             </div>
 
                             <div className={styles["form-group"]}>
-                                <label for="subject">Sujet *</label>
-                                <select id="subject" name="subject" required>
+                                <label htmlFor="subject">Sujet *</label>
+                                <select  {...register("subject", { required: true })} id="subject" >
                                     <option value="">Sélectionnez un sujet</option>
-                                    <option value="general">Demande générale</option>
-                                    <option value="volunteer">Devenir bénévole</option>
-                                    <option value="partnership">Partenariat</option>
-                                    <option value="donation">Don et financement</option>
-                                    <option value="press">Demande presse</option>
-                                    <option value="other">Autre</option>
+                                    <option value="DEMENDE_GENERALE">Demande générale</option>
+                                    <option value="DEVENIR_BENEVOLE">Devenir bénévole</option>
+                                    <option value="PARTENARIAT">Partenariat</option>
+                                    <option value="DON_ET_FINANCEMENT">Don et financement</option>
+                                    <option value="DEMENDE_DE_PRESE">Demande presse</option>
+                                    <option value="AUTRES">Autre</option>
                                 </select>
                                 <span className={styles["error-text"]} id="subject-error"></span>
                             </div>
 
                             <div className={styles["form-group"]}>
-                                <label for="message">Message *</label>
-                                <textarea id="message" name="message" rows="5" placeholder="Décrivez votre demande..." required></textarea>
+                                <label htmlFor="message" >Message *</label>
+                                <textarea  {...register("message", { required: true })} id="message" rows="5" placeholder="Décrivez votre demande..." ></textarea>
                                 <span className={styles["error-text"]} id="message-error"></span>
                             </div>
 
                             <div className={`${styles["form-group"]} ${styles["checkbox-group"]} `} >
-                                <label className={styles["checkbox-label"]}>
-                                    <input type="checkbox" id="privacy" name="privacy" required/>
+                                <div className={styles["checkbox-label"]}>
+                                    <input type="checkbox" {...register("condition",{required:false})} value={true}  />
                                     <span className={styles["checkmark"]}></span>
                                     J'accepte que mes données soient traitées conformément à la 
                                     <a href="#" className={styles["link"]}>politique de confidentialité</a> *
-                                </label>
+                                </div>
                                 <span className={styles["error-text"]} id="privacy-error"></span>
                             </div>
 
-                            <div className={`${styles["form-group"]} ${styles["checkbox-group"]} `} >
-                                <label className={styles["checkbox-label"]}>
-                                    <input type="checkbox" id="newsletter" name="newsletter"/>
-                                    <span className={styles["checkmark"]}></span>
-                                    Je souhaite recevoir la newsletter de BEES
-                                </label>
-                            </div>
+                    
 
                             <button  className={`${styles.btn}  ${styles.primary} ${styles["form-submit"]} `} type="submit" >
                                 <span className={styles["btn-text"]}>Envoyer le Message</span>

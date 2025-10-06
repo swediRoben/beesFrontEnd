@@ -1841,6 +1841,7 @@ section {
     border: 2px solid var(--neutral-light);
     border-radius: 4px;
     display: flex;
+    background-color: #4285f4;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;

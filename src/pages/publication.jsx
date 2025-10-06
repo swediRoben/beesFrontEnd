@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import styles from "./menu.module.css";
 import Menu from "./menu.jsx"
-import Fooler from "./fooler.jsx";
+import Fooler from "./fooler.jsx"; 
 import {getAllPublications} from "../services/publicationServices" 
+import { Link } from "react-router-dom";
 
-const Publication = () => {  
+const Publication = () => { 
+
     const [datas, setDatas] = useState({data:[]});
     const [sousmenu, setSousmanu] =useState("")
     const [page,setPage]=useState(1); 
     const [type,setType]=useState(null); 
 
    const dataPublication =async (page,size)=>{ 
-        const data=await getAllPublications(null,page,size);  
+        const data=await getAllPublications(null,page,size); 
         setDatas(data) 
       } 
 
@@ -37,6 +39,7 @@ const Publication = () => {
      useEffect(() => {
     dataPublication(page,6) 
     },[page]);
+    
   return (
     <div className={styles.contenerprojet}> 
       <Menu/>
@@ -103,7 +106,7 @@ const Publication = () => {
                              {element.typeFichier === "PDF"? ( 
                             <a href={element.fichier}  className={styles["link-arrow"]}>Télécharger →</a>
                                 ): ( 
-                            <a href={element.id}  className={styles["link-arrow"]}>Voir plus →</a>
+                            <Link to="/plus/{`${element.id}}"  className={styles["link-arrow"]}>Voir plus →</Link>
                                 )} 
                         </div>
                     </div>
@@ -122,14 +125,14 @@ const Publication = () => {
                                 display:"flex",
                                 gap:4,
                                 justifyContent:"center"
-                            }}>
+                            }}> 
                             <button className={`${styles["btn"]} ${styles.secondary}`} onClick={()=>addPage(page-1)} title="page">Retour...</button>
-                             <button className={`${styles["btn"]} ${styles.secondary}`} onClick={()=>addPage(page+1)} title="page">Charger plus...</button>
-            
+                            <button className={`${styles["btn"]} ${styles.secondary}`} onClick={()=>addPage(page+1)} title="page">Charger plus...</button>
+                        
                             </div>
                            ):
                              <button className={`${styles["btn"]} ${styles.secondary}`} onClick={()=>addPage(page+1)} title="page">Charger plus...</button>
-                             }
+                            }
                         </div>  
       <Fooler/>    
   </div>
