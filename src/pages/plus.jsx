@@ -50,7 +50,7 @@ const Plus = () => {
                 )}
         <div className="detail-content">
           <h2>{data.title}</h2>
-          <p className="detail-date">Publié le {data.date.slice(0,10)}</p>
+          <p className="detail-date">{data.date===undefined ?`Debut ${data.debut.slice(0,10)} - Fin ${data.fin.slice(0,10)}`:`Publié le ${data.date.slice(0,10)}`}</p>
           <p className="voir-plus-text">
             {data.contenu}
           </p>
