@@ -204,9 +204,9 @@ const Acceuil = () => {
                          </div>
                      </div>
                             ))}
-      <Link to="/projet"  className={styles["link-voir-tous"]}>Voir tous nos projet →</Link>
                       
                  </div>
+      <Link to="/projet"  className={styles["link-voir-tous"]}>Voir tous nos projet →</Link>
         </div>
       </section>
 
