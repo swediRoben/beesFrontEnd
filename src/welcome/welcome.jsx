@@ -151,7 +151,7 @@ const {
       // Soumission projet
     const onSubmitProjet = async (data) => {
       try {
-        data.budget=parseFloat(data.budget)
+        data.budget=parseFloat(data.budget) 
         data.avencement=parseFloat(data.avencement)
         data.beneficier=parseFloat(data.beneficier)
         if (!data.id) {
@@ -381,7 +381,7 @@ const {
             <label htmlFor="avancement">Avancement du projet (%)</label>
             <input
               type="number"
-              {...registerProjet("avancement", {
+              {...registerProjet("avencement", {
                 min: { value: 0, message: "Le minimum est 0" },
                 max: { value: 100, message: "Le maximum est 100" },
               })}
