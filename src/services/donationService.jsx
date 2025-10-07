@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/api/donation"; // adapte selon ton backend
+const API_URL = "https://beesbackend-production.up.railway.app/api/donation"; // adapte selon ton backend
 
 // Récupérer toutes les donations avec pagination
 export const getDonations = (page = 1, size = 5) => {
