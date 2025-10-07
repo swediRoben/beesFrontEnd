@@ -82,7 +82,7 @@ const Menu = () => {
             <div className={styles["nav-logo"]}>
               <Link to="/">
                 <img 
-                  src="/public/beeslogo-_1_.svg" 
+                  src="/beeslogo-_1_.svg" 
                   alt="Logo BEES" 
                   className={styles["logo-img"]} 
                 />

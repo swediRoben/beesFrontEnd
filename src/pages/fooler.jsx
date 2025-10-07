@@ -12,7 +12,7 @@ const Fooler = () => {
             <div className={styles["nav-logo"]}>
               <a href="index.html">
                 <img 
-                  src="/public/beeslogo-_1_.svg" 
+                  src="/beeslogo-_1_.svg" 
                   alt="Logo BEES" 
                   className={styles["logo-img"]} 
                 />

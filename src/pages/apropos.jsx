@@ -32,7 +32,7 @@ const Apropos = () => {
                 
                 </div>
                 <div className={ styles["story-image"]}>
-                    <img src="/public/protection-environ.jpg" alt="Équipe BEES au travail"/>
+                    <img src="/protection-environ.jpg" alt="Équipe BEES au travail"/>
                 </div>
             </div>
         </div>
