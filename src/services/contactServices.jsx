@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/api/contact"; // adapte selon ton backend
+const API_URL = "https://beesbackend-production.up.railway.app/api/contact"; // adapte selon ton backend
 
 // Récupérer tous avec pagination
 export const getContacts = (page = 1, limit = 5) => {
