@@ -2,7 +2,7 @@
 import axios from "axios";
 
 // Base URL de ton API
-const API_URL = "http://localhost:3000/api/cordonnees";
+const API_URL = "https://beesbackend-production.up.railway.app/api/cordonnees";
 
 // Fonction pour récupérer toutes les coordonnées avec pagination
 export const getAllCoordonnees = async (page = 1, size = 10) => {
