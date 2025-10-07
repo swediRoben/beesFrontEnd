@@ -2,7 +2,7 @@
 import axios from "axios";
 
 // Base URL de ton API
-const API_URL = "http://localhost:3000/api/projets";
+const API_URL = "https://beesbackend-production.up.railway.app/api/projets";
 
 // ✅ Récupérer tous les projets avec pagination
 export const getAllProjets = async (secteur=null,page = 1, size = 10) => {
