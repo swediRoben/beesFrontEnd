@@ -1,7 +1,7 @@
 // src/services/publicationService.js
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/api/publications";
+const API_URL = "https://beesbackend-production.up.railway.app/api/publications";
  
 
 // ✅ Récupérer tous les projets avec pagination
