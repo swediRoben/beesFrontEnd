@@ -7,10 +7,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 
-console.log('Environment PORT:', process.env.PORT);
-console.log('Using PORT:', PORT);
+console.log("Environment PORT:", process.env.PORT);
+console.log("Using PORT:", PORT);
+console.log("Serving static files from:", path.join(__dirname, "dist"));
 
 // Health check endpoint for Railway
 app.get('/health', (_req, res) => {
