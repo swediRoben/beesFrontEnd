@@ -11,6 +11,14 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+console.log('Environment PORT:', process.env.PORT);
+console.log('Using PORT:', PORT);
+
+// Health check endpoint for Railway
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok' });
+});
+
 // Servir les fichiers statiques du dossier dist
 app.use(express.static(path.join(__dirname, 'dist')));
 
