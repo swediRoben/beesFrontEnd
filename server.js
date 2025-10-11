@@ -37,6 +37,16 @@ if (fs.existsSync(distDir)) {
 if (staticDir) {
   app.use(express.static(staticDir));
 
+  // Explicitly handle root path to return 200 for Railway default health checks
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(staticDir, 'index.html'), (err) => {
+      if (err) {
+        console.error('Error sending index.html for /:', err);
+        if (!res.headersSent) res.status(err.status || 500).send('Server error');
+      }
+    });
+  });
+
   // SPA fallback: only for requests that accept HTML (prevents intercepting asset requests)
   app.get('*', (req, res, next) => {
     const accept = req.headers.accept || '';
