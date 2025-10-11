@@ -196,12 +196,7 @@ const Contact = () => {
                 <div className={styles["faq-item"]}>
                     <h3>Vos projets sont-ils transparents ?</h3>
                     <p>Oui, nous publions des rapports détaillés sur l'utilisation des fonds et l'avancement de nos projets. Consultez notre section Publications.</p>
-                </div>
-                
-                <div className={styles["faq-item"]}>
-                    <h3>Dans quels pays intervenez-vous ?</h3>
-                    <p>Nous sommes présents dans 25 pays d'Afrique de l'Ouest, avec des bureaux régionaux au Sénégal et au Burkina Faso.</p>
-                </div>
+                </div> 
             </div>
         </div>
     </section>
