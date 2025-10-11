@@ -9,7 +9,9 @@
         "lint": "eslint .",
         "preview": "vite preview --port $PORT --host",
         "start": "node server.js",
-        "start:dev": "npm run dev"
+        "start:dev": "npm run dev",
+        "railway:build": "npm install && npm run build",
+        "railway:start": "node server.js"
     },
     "dependencies": {
         "axios": "^1.11.0",
