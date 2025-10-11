@@ -31,7 +31,7 @@ const Acceuil = () => {
         <div
           className={styles.herobg}
           style={{
-            backgroundImage: `url('/public/IMG_0451.png')`
+            backgroundImage: `url('/IMG_0451.png')`
           }}
         ></div>
 

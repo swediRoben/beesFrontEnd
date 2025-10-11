@@ -56,7 +56,7 @@ const Publication = () => {
         </div>
     </section>  
 
-    <section className={styles["page-header"]} style={{backgroundImage:` url('/public/fondEcran.svg')`}}>
+    <section className={styles["page-header"]} style={{backgroundImage:` url('/fondEcran.svg')`}}>
           <div className={styles["page-header-back"]}></div> 
         <div className={styles["container"]}>
             <h1>Publications & Actualités</h1>
