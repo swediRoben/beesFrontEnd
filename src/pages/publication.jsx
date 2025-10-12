@@ -41,7 +41,7 @@ const Publication = () => {
     },[page]);
     
   return (
-    <div className={styles.body}> 
+    <div className={styles.contenerprojet}> 
       <Menu/>
 
    <section className={styles["filter-section"]}>

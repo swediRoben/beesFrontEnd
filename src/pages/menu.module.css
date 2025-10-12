@@ -42,12 +42,10 @@
     z-index: 20;
 }
 
-.menustyle .navbar{
-    width: 100%; 
-    padding: 13px;
-    margin: 0 auto; 
-    box-sizing: border-box;
+.menustyle{ 
+    padding: 3px; 
 }
+
 
 /* je veux quelque chose comme ca */
 
@@ -1069,102 +1067,10 @@ section {
 /* Page Header */
 
 .page-header {
-    width: 1200px;
     position: relative;
     /* important pour que le "back" se cale à l’intérieur */
     padding: 80px 0 60px;
     text-align: center;
-}
-
-
-/* Responsive downsizing from <1280px down to 220px */
-@media (max-width: 1280px) {
-    .page-header { max-width: 1280px; }
-}
-
-@media (max-width: 1024px) {
-    .page-header { max-width: 1024px; }
-}
-
-@media (max-width: 920px) {
-    .page-header { max-width: 920px; }
-}
-
-@media (max-width: 768px) {
-    .page-header { max-width: 768px; }
-}
-
-@media (max-width: 660px) {
-    .page-header { max-width: 660px; }
-}
-
-@media (max-width: 560px) {
-    .page-header { max-width: 560px; }
-}
-
-@media (max-width: 480px) {
-    .page-header { max-width: 480px; }
-}
-
-@media (max-width: 400px) {
-    .page-header { max-width: 400px; }
-}
-
-@media (max-width: 360px) {
-    .page-header { max-width: 360px; }
-}
-
-@media (max-width: 320px) {
-    .page-header { max-width: 320px; }
-}
-
-@media (max-width: 280px) {
-    .page-header { max-width: 280px; }
-}
-
-@media (max-width: 240px) {
-    .page-header { max-width: 240px; }
-}
-
-@media (max-width: 220px) {
-    .page-header { max-width: 220px; }
-}
- 
-/* Scale up container for large and ultra-wide screens */
-@media (min-width: 1280px) {
-    .page-header {
-        max-width: 1280px;
-    }
-}
-
-@media (min-width: 1440px) {
-    .page-header {
-        max-width: 1440px;
-    }
-}
-
-@media (min-width: 1536px) {
-    .page-header {
-        max-width: 1536px;
-    }
-}
-
-@media (min-width: 1920px) {
-    .page-header {
-        max-width: 1720px; /* content line-length comfort on 1080p+ */
-    }
-}
-
-@media (min-width: 2560px) {
-    .page-header {
-        max-width: 2000px;
-    }
-}
-
-@media (min-width: 3000px) {
-    .page-header {
-        max-width: 2400px;
-    }
 }
 
 .page-header .page-header-back {
