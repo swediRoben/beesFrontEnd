@@ -37,7 +37,7 @@ useEffect(() => {
 
 
   return (
-    <div className={styles.contenerprojet}> 
+    <div className={styles.body}> 
       <Menu/>
 
 <section className={styles["filter-section"]}>

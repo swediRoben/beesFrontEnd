@@ -53,7 +53,7 @@ const Menu = () => {
   };
 
   return (
-    <div>
+    <div className={styles.menustyle}>
     {/* Langue */}
 
         <header className={styles.topbar}>

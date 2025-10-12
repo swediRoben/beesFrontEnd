@@ -20,7 +20,7 @@ const Plus = () => {
     console.log(data)
 
   return (
-    <div className={styles.contenerprojet}>
+      <div className={styles.contenerprojet}>
         <Menu/>
 
     <div className="detail-page-container"> 
@@ -90,7 +90,9 @@ const Plus = () => {
       </main>
       )}
     </div>
-    
+    <section 
+  className={styles["page-header"]} 
+  > </section>
     <Fooler/>
     </div>
   );
