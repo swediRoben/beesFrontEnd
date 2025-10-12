@@ -6,9 +6,9 @@ function App() {
   const token = sessionStorage.getItem('token');
   console.log(token)
   return (
-    <>
+    <div className={styles.body}>
      <Menu/>   
-    </>
+    </div>
   );
 }
 
