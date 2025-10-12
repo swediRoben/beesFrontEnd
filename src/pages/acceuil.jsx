@@ -142,7 +142,7 @@ const Acceuil = () => {
               <p>Projets Réalisés</p>
             </div>
             <div className={styles.stat}>
-              <div className={styles["stat-number"]}>0</div>
+              <div className={styles["stat-number"]}>RDC</div>
               <p>Pays d'Intervention</p>
             </div>
             <div className={styles.stat}>
