@@ -48,7 +48,7 @@ const Acceuil = () => {
       </section>
 
       {/* Mission Section */}
-      <section className={styles.mission}>
+      {/* <section className={styles.mission}>
         <div className={styles.container}>
           <div className={styles["section-header"]}>
             <h2>Notre Vision</h2>
@@ -88,7 +88,42 @@ const Acceuil = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+
+            <section className={ styles["values-section"]}>
+              <div className={ styles["container"]}>
+                  <div className={ styles["section-header"]}>
+                      <h2>APPROCHES METHODOLOGIQUES</h2>
+                      {/* <p>Les principes qui guident notre action quotidienne</p> */}
+                  </div>
+                  
+                  <div className={ styles["values-grid"]}>
+                      <div className={ styles["value-card"]}>
+                          <div className={ styles["value-icon compassion"]}>❤️</div>
+                          <h3>Recherche-action </h3>
+                          <p>Etudes et publications sur l’impact du climat et des ressources sur les communautés.</p>
+                      </div>
+                      
+                      <div className={ styles["value-card"]}>
+                          <div className={ styles["value-icon collaboration"]}>🛡️</div>
+                          <h3>Évaluation participative</h3>
+                          <p>Indicateurs communautaires pour mesurer les impacts.</p>
+                     </div>
+                      
+                      <div className={ styles["value-card"]}>
+                          <div className={ styles["value-icon integrity"]}>🤝</div>
+                          <h3>Formation et coaching</h3>
+                          <p>sessions pratiques pour leaders, enseignants, paysans, coopératives.</p>
+                    </div>
+                      
+                      <div className={ styles["value-card"]}>
+                          <div className={ styles["value-icon innovation"]}>💡</div>
+                          <h3>Synergies stratégiques </h3>
+                          <p>Collaboration avec ONG locales, universités, services étatiques et bailleurs.</p>
+                      </div>
+                  </div>
+              </div>
+          </section>
 
       {/* Impact Numbers */}
       <section className={styles.impact}>
@@ -99,19 +134,19 @@ const Acceuil = () => {
 
           <div className={styles["impact-stats"]}>
             <div className={styles.stat}>
-              <div className={styles["stat-number"]}>15,000+</div>
+              <div className={styles["stat-number"]}>0+</div>
               <p>Bénéficiaires Aidés</p>
             </div>
             <div className={styles.stat}>
-              <div className={styles["stat-number"]}>120</div>
+              <div className={styles["stat-number"]}>0</div>
               <p>Projets Réalisés</p>
             </div>
             <div className={styles.stat}>
-              <div className={styles["stat-number"]}>25</div>
+              <div className={styles["stat-number"]}>0</div>
               <p>Pays d'Intervention</p>
             </div>
             <div className={styles.stat}>
-              <div className={styles["stat-number"]}>500+</div>
+              <div className={styles["stat-number"]}>0+</div>
               <p>Volontaires Actifs</p>
             </div>
           </div>
@@ -215,9 +250,15 @@ const Acceuil = () => {
         <div className={styles.container}>
           <h2>Rejoignez Notre Mission</h2>
           <p>
+             Devenir un acteur clé en RDC dans la recherche, la formation et l’accompagnement des communautés et
+              institutions pour une gestion durable de l’environnement,
+              une meilleure adaptation au changement climatique et une gouvernance équitable des ressources
+               naturelles.
+            </p>
+          {/* <p>
             Ensemble, nous pouvons créer un changement positif et durable. Votre
             soutien fait la différence.
-          </p>
+          </p> */}
           <div className={styles["cta-buttons"]}>
             <button className={`${styles.btn} ${styles.white}`}>Devenir Bénévole</button>
             <button className={`${styles.btn} ${styles["outline-white"]}`}>Faire un Don</button>
