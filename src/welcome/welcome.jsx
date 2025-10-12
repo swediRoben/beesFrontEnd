@@ -737,6 +737,7 @@ const {
 
         {/* Dashboard dashboard */}
         <section
+          style={{width:"100%"}}
           id="dashboard-section"
           className={`content-section ${activeSection === "dashboard" ? "active" : "hidden"}`}
         >
@@ -809,6 +810,7 @@ const {
 
         {/* Projet projets */}
         <section
+          style={{width:"100%"}}
           id="reports-section"
           className={`content-section ${activeSection === "projets" ? "active" : "hidden"}`}
         >
@@ -868,6 +870,7 @@ const {
 
         {/* Publications publications */}
         <section
+          style={{width:"100%"}}
           id="publications-section"
           className={`content-section ${activeSection === "publications" ? "active" : "hidden"}`}
         >
@@ -933,6 +936,7 @@ const {
 
         {/* Users users */}
         <section
+          style={{width:"100%"}}
           id="users-section"
           className={`content-section ${activeSection === "users" ? "active" : "hidden"}`}
         >
@@ -984,6 +988,7 @@ const {
 
         {/* Donations Donations */}
         <section
+          style={{width:"100%"}}
           id="donations-section"
           className={`content-section ${activeSection === "donations" ? "active" : "hidden"}`}
         >
