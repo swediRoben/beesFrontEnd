@@ -11,6 +11,7 @@ const Publication = () => {
     const [sousmenu, setSousmanu] =useState("")
     const [page,setPage]=useState(1); 
     const [type,setType]=useState(null); 
+    const pageSize = 6;
 
    const dataPublication =async (page,size)=>{ 
         const data=await getAllPublications(null,page,size); 
@@ -18,7 +19,7 @@ const Publication = () => {
       } 
 
   const addPage=(val)=>{ 
-        fecthDataBy(type,val,6)
+        fecthDataBy(type,val,pageSize)
         setPage(val);
     } 
 
@@ -37,7 +38,7 @@ const Publication = () => {
     }
  
      useEffect(() => {
-    dataPublication(page,6) 
+    dataPublication(page,pageSize) 
     },[page]);
     
   return (
@@ -121,20 +122,57 @@ const Publication = () => {
          
  
                        <div className={styles["load-more-section"]}>
-                           { page>1?(
-                            <div style={{
-                                display:"flex",
-                                gap:4,
-                                justifyContent:"center"
-                            }}> 
-                            <button className={`${styles["btn"]} ${styles.secondary}`} onClick={()=>addPage(page-1)} title="page">Retour...</button>
-                            <button className={`${styles["btn"]} ${styles.secondary}`} onClick={()=>addPage(page+1)} title="page">Charger plus...</button>
-                        
+                       {(() => {
+                          const totalPages = (
+                            datas?.totalPages ??
+                            datas?.totalPage ??
+                            datas?.pages ??
+                            (datas?.totalElements && (datas?.size || pageSize)
+                              ? Math.ceil(datas.totalElements / (datas.size || pageSize))
+                              : undefined)
+                          );
+
+                          // Fallback: show a small range around current page if total unknown
+                          const pagesCount = typeof totalPages === 'number' && totalPages > 0
+                            ? totalPages
+                            : Math.max(page + 2, 3);
+
+                          const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
+
+                          return (
+                            <div className={styles["pagination"]}>
+                              {page > 1 && (
+                                <button className={styles["pagination-btn"]} onClick={() => addPage(page - 1)} title="Précédent">
+                                  «
+                                </button>
+                              )}
+                              {pages.map((p) => (
+                                <button
+                                  key={p}
+                                  className={`${styles["pagination-btn"]} ${p === page ? styles.active : ""}`}
+                                  onClick={() => addPage(p)}
+                                  title={`Page ${p}`}
+                                  disabled={p === page}
+                                >
+                                  {p}
+                                </button>
+                              ))}
+                              {typeof totalPages === 'number' ? (
+                                page < totalPages && (
+                                  <button className={styles["pagination-btn"]} onClick={() => addPage(page + 1)} title="Suivant">
+                                    »
+                                  </button>
+                                )
+                              ) : (
+                                // Unknown total, allow next
+                                <button className={styles["pagination-btn"]} onClick={() => addPage(page + 1)} title="Suivant">
+                                  »
+                                </button>
+                              )}
                             </div>
-                           ):
-                             <button className={`${styles["btn"]} ${styles.secondary}`} onClick={()=>addPage(page+1)} title="page">Charger plus...</button>
-                            }
-                        </div>  
+                          );
+                       })()}
+                     </div>  
       <Fooler/>    
   </div>
   );

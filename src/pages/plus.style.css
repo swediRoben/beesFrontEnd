@@ -31,44 +31,10 @@
 }
 
 .detail-page-container {
-    max-width: 1200px;    
-    width: 1200px;       
+    width: 100vw;       
     margin: 0 auto;     
     padding: 0 20px;    
     box-sizing: border-box;
-}
-
-/* Écrans très larges (ex. 3000px) */
-@media (min-width: 2000px) {
-    .detail-page-container {
-        max-width: 1800px;
-        width: 1800px; 
-    }
-}
-
-/* Écrans moyens (tablettes, laptops) */
-@media (max-width: 992px) {
-    .detail-page-container {
-        max-width: 90%;
-        width: 90%;
-        padding: 0 15px;
-    }
-}
-
-/* Petits écrans (mobiles ~600px et moins) */
-@media (max-width: 600px) {
-    .detail-page-container {
-        max-width: 100%;
-        width: 100%;
-        padding: 0 10px;
-    }
-}
-
-/* Très petits écrans (220px et plus) */
-@media (max-width: 320px) {
-    .detail-page-container {
-        padding: 0 5px;
-    }
 }
 
 

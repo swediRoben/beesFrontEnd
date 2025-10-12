@@ -10,6 +10,7 @@ const Projet = () => {
     const [page,setPage]=useState(1);  
     const [secteur,setSecteur]=useState(null);  
     const [sousmenu, setSousmanu] =useState("") 
+    const pageSize = 6;
 
     const addPage=(val)=>{  
         setPage(val);
@@ -18,7 +19,7 @@ const Projet = () => {
     
 useEffect(() => {
   const fetch = async () => {
-    const data = await getAllProjets(secteur, page, 6);
+    const data = await getAllProjets(secteur, page, pageSize);
     setDatas(data);
   };
   fetch();
@@ -186,20 +187,49 @@ useEffect(() => {
          
              
          <div className={styles["load-more-section"]}>
-                           { page>1?(
-                  <div style={{
-                                display:"flex",
-                                gap:4,
-                                justifyContent:"center"
-                  }}>
-                <button className={`${styles["btn"]} ${styles.secondary}`} onClick={()=>addPage(page-1)} title="page">Retour...</button>
-                <button className={`${styles["btn"]} ${styles.secondary}`} onClick={()=>addPage(page+1)} title="page">Charger plus...</button>
-            
-                </div>
-                ):
-                <button className={`${styles["btn"]} ${styles.secondary}`} onClick={()=>addPage(page+1)} title="page">Charger plus...</button>
-                }
-         </div> 
+          {(() => {
+            const totalPages = (
+              datas?.totalPages ?? 
+              datas?.totalPage ?? 
+              datas?.pages ?? 
+              (datas?.totalElements && (datas?.size || pageSize) 
+                ? Math.ceil(datas.totalElements / (datas.size || pageSize)) 
+                : undefined) 
+            );
+
+            const pagesCount = typeof totalPages === 'number' && totalPages > 0 
+              ? totalPages 
+              : Math.max(page + 2, 3);
+
+            const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
+
+            return (
+              <div className={styles["pagination"]}>
+                {page > 1 && (
+                  <button className={styles["pagination-btn"]} onClick={() => addPage(page - 1)} title="Précédent">«</button>
+                )}
+                {pages.map((p) => (
+                  <button
+                    key={p}
+                    className={`${styles["pagination-btn"]} ${p === page ? styles.active : ""}`}
+                    onClick={() => addPage(p)}
+                    title={`Page ${p}`}
+                    disabled={p === page}
+                  >
+                    {p}
+                  </button>
+                ))}
+                {typeof totalPages === 'number' ? (
+                  page < totalPages && (
+                    <button className={styles["pagination-btn"]} onClick={() => addPage(page + 1)} title="Suivant">»</button>
+                  )
+                ) : (
+                  <button className={styles["pagination-btn"]} onClick={() => addPage(page + 1)} title="Suivant">»</button>
+                )}
+              </div>
+            );
+          })()}
+        </div> 
  
       <Fooler/>    
         </div>
