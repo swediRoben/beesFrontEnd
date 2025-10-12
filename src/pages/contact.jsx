@@ -27,7 +27,7 @@ const Contact = () => {
         };
 
     return (
-        <>
+        <div className={styles.body}>
       <Menu/> 
 
     <section className={styles["page-header"]} style={{backgroundImage:` url('/fondEcran.svg')`}}>
@@ -202,7 +202,7 @@ const Contact = () => {
     </section>
       <Fooler/>    
 
-        </>
+        </div>
     );
 }
 
