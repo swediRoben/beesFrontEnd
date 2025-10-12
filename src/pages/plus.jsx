@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./menu.module.css";
+// import styles from "./menu.module.css";
 import "./plus.style.css"; 
 import Menu from "./menu.jsx"
 import Fooler from "./fooler.jsx";
@@ -20,7 +20,7 @@ const Plus = () => {
     console.log(data)
 
   return (
-      <div className={styles.contenerprojet}>
+      <div >
         <Menu/>
 
     <div className="detail-page-container"> 
@@ -89,10 +89,7 @@ const Plus = () => {
         </div> 
       </main>
       )}
-    </div>
-    <section 
-  className={styles["page-header"]} 
-  > </section>
+    </div> 
     <Fooler/>
     </div>
   );

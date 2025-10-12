@@ -38,7 +38,7 @@ const Contact = () => {
             </div>
         </section>
  
-    <section className={styles["contact-content"]}>
+    <section style={{padding:"2rem"}} className={styles["contact-content"]}>
         <div className={styles["container"]}>
             <div className={styles["contact-layout"]}>
                 
@@ -108,13 +108,13 @@ const Contact = () => {
                             <div className={styles["form-row"]}>
                                 <div className={styles["form-group"]}>
                                     <label htmlFor="name">Nom complet *</label>
-                                    <input  {...register("nom", { required: true })}  type="text" id="name"/>
+                                    <input  {...register("nom", { required: true })} placeholder='votre nom' type="text" id="name"/>
                                     <span className={styles["error-text"]} id="name-error"></span>
                                 </div>
 
                                 <div className={styles["form-group"]}>
                                     <label htmlFor="email">Adresse email *</label>
-                                    <input type="email"  {...register("email", { required: true })}  id="email"/>
+                                    <input type="email"  {...register("email", { required: true })} placeholder='votre email'  id="email"/>
                                     <span className={styles["error-text"]} id="email-error"></span>
                                 </div>
                             </div>
@@ -162,9 +162,8 @@ const Contact = () => {
         </div>
     </section>
     
-    <section className={styles["map-section"]}>
-        <div className={styles["container"]}>
-            <h2>Nous Localiser</h2>
+    <section className={styles["map-section"]}> 
+            <h2 style={{textAlign:"center"}}>Nous Localiser</h2>
             <div className={styles["map-placeholder"]}>
                 <div className={styles["map-content"]}>
                     <div className={styles["map-icon"]}>🗺️</div>
@@ -172,8 +171,7 @@ const Contact = () => {
                     <p>123 Avenue plage d'or<br/>Uvira, Commune de Kalundu</p>
                     <p className={styles["map-note"]}>RDC / SUD KIVU </p>
                 </div>
-            </div>
-        </div>
+            </div> 
     </section> 
 
     <section className={styles["faq-section"]}>
