@@ -53,7 +53,7 @@ const Menu = () => {
   };
 
   return (
-    <div className={styles.menustyle}>
+    <div>
     {/* Langue */}
 
         <header className={styles.topbar}>
@@ -75,7 +75,7 @@ const Menu = () => {
     </header> 
 
       {/* Navigation */}
-      <nav className={styles.navbar}>
+      <nav className={styles.navbar} style={{paddingRight:"1rem",paddingLeft:"1rem"}}>
         <div className={styles["nav-container"]}>
           <div className={styles["nav-content"]}> 
 

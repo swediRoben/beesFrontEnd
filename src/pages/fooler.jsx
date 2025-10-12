@@ -5,7 +5,7 @@ const Fooler = () => {
     return (
         <>
               {/* Footer */}
-      <footer className={styles.footer}>
+      <footer className={styles.footer} style={{paddingRight:"1rem",paddingLeft:"1rem"}}>
         <div className={styles.container}>
           <div className={styles["footer-content"]}>
             <div className={styles["footer-section"]}>

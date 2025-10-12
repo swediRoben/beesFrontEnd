@@ -20,7 +20,7 @@ const Apropos = () => {
 </section>
 
 
-    <section className={ styles["our-story"]}>
+    <section className={ styles["our-story"]} style={{paddingRight:"1rem",paddingLeft:"1rem"}}>
         <div className={ styles["container"]}>
             <div className={ styles["story-content"]}>
                 <div className={ styles["story-text"]}>
@@ -74,7 +74,7 @@ const Apropos = () => {
         </div>
     </section>
  
-  <section className={styles["our-domain"]}>
+  <section className={styles["our-domain"]} style={{paddingRight:"1rem",paddingLeft:"1rem"}}>
   <div className={styles["container"]}>
     <div className={styles["story-content"]}>
       

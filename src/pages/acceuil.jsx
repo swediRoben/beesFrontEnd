@@ -259,7 +259,7 @@ const Acceuil = () => {
             Ensemble, nous pouvons créer un changement positif et durable. Votre
             soutien fait la différence.
           </p> */}
-          <div className={styles["cta-buttons"]}>
+          <div className={styles["cta-buttons"]} style={{paddingBottom:"1rem"}}>
             <button className={`${styles.btn} ${styles.white}`}>Devenir Bénévole</button>
             <button className={`${styles.btn} ${styles["outline-white"]}`}>Faire un Don</button>
           </div>
