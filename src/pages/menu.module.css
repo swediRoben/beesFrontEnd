@@ -49,7 +49,7 @@
 
 /* je veux quelque chose comme ca */
 
-.contenerprojet {
+section {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto; 
@@ -59,37 +59,37 @@
  
 /* Scale up container for large and ultra-wide screens */
 @media (min-width: 1280px) {
-    .contenerprojet {
+    section {
         max-width: 1280px;
     }
 }
 
 @media (min-width: 1440px) {
-    .contenerprojet {
+    section {
         max-width: 1440px;
     }
 }
 
 @media (min-width: 1536px) {
-    .contenerprojet {
+    section {
         max-width: 1536px;
     }
 }
 
 @media (min-width: 1920px) {
-    .contenerprojet {
+    section {
         max-width: 1720px; /* content line-length comfort on 1080p+ */
     }
 }
 
 @media (min-width: 2560px) {
-    .contenerprojet {
+    section {
         max-width: 2000px;
     }
 }
 
 @media (min-width: 3000px) {
-    .contenerprojet {
+    section {
         max-width: 2400px;
     }
 }
@@ -655,9 +655,7 @@ main {
 
 /* Sections */
 
-section {
-    padding: 80px 0;
-}
+
 
 .section-header {
     text-align: center;
