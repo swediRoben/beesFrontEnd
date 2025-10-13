@@ -63,13 +63,42 @@ const Menu = () => {
             </a>
 
             <nav className={styles.langs} aria-label="Sélecteur de langue">
-                <ul className={styles["lang-list"]} role="list">
-                    <li className={styles["lang-item"]} ><a className={styles["lang-link"]} href="?lang=fr">🇫🇷 <strong>Français</strong></a></li>
-                    <li className={styles["lang-item"]} ><a className={styles["lang-link"]} href="?lang=en">us <strong>English</strong></a></li>
-                    <li className={styles["lang-item"]} ><a className={styles["lang-link"]} href="?lang=en">🇪🇸 <strong>Español</strong></a></li>
- 
-
-                     </ul>
+                {(() => {
+                  const languages = [
+                    { code: 'fr', label: 'Français', flag: '🇫🇷', hreflang: 'fr' },
+                    { code: 'en', label: 'English', flag: '🇬🇧', hreflang: 'en' },
+                    { code: 'es', label: 'Español', flag: '🇪🇸', hreflang: 'es' },
+                  ];
+                  const params = new URLSearchParams(location.search);
+                  const currentLang = params.get('lang') || 'fr';
+                  const buildHref = (code) => {
+                    const p = new URLSearchParams(location.search);
+                    p.set('lang', code);
+                    const qs = p.toString();
+                    return `${location.pathname}${qs ? `?${qs}` : ''}`;
+                  };
+                  return (
+                    <ul className={styles["lang-list"]} role="list">
+                      {languages.map((lng) => (
+                        <li className={styles["lang-item"]} key={lng.code}>
+                          <a
+                            className={styles["lang-link"]}
+                            href={buildHref(lng.code)}
+                            lang={lng.hreflang}
+                            hrefLang={lng.hreflang}
+                            rel="alternate"
+                            aria-current={currentLang === lng.code ? 'true' : undefined}
+                            title={`${lng.label}`}
+                          >
+                            <span aria-hidden="true">{lng.flag}</span>
+                            {' '}
+                            <strong>{lng.label}</strong>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  );
+                })()}
             </nav>
         </div>
     </header> 
