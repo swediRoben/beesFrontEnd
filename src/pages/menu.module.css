@@ -60,10 +60,11 @@ section {
   
 
 .topbar__inner {
-    width: 100%; 
+    width: 100vw; 
     margin: 0 auto;
     padding: .1rem 1rem;
     display: flex;
+    font-size: small;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
@@ -80,8 +81,8 @@ section {
 }
 
 .brand__dot {
-    width: .6rem;
-    height: .6rem;
+    width: .5rem;
+    height: .5rem;
     border-radius: 999px;
     background: radial-gradient(circle at 30% 30%, var(--accent), var(--accent-2));
     box-shadow: 0 0 10px #22d3ee;
@@ -92,7 +93,7 @@ section {
 
 nav.langs {
     overflow: visible;
-    background: rgba(255, 255, 255, .06);
+    background: rgba(255, 255, 255, 0.06);
     border: 1px solid var(--sep);
     border-radius: 999px;
     padding: 4px;
@@ -116,10 +117,11 @@ nav.langs {
     display: inline-flex;
     align-items: center;
     gap: .45rem;
-    padding: .4rem .8rem;
+    padding: .3rem .6rem;
     border-radius: 999px;
     text-decoration: none;
     color: var(--fg);
+    font-size: smaller;
     font-weight: 500;
     letter-spacing: .2px;
     outline: none;
