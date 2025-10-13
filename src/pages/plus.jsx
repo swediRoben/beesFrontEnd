@@ -65,6 +65,51 @@ const Plus = () => {
     fetchById();
   }, [urlId, urlType, data]);
 
+  // Set Open Graph and Twitter meta tags so shared links show image/title/description
+  useEffect(() => {
+    if (!data) return;
+    const setMeta = (attr, key, value) => {
+      if (!value) return;
+      let el = document.querySelector(`meta[${attr}='${key}']`);
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', value);
+    };
+
+    const title = data.title || 'BEES';
+    const description = (data.contenu || '').toString().slice(0, 160);
+    const url = window.location.href;
+
+    // Compute preview image
+    let image = '/beeslogo-_1_.svg';
+    if (data.typeFichier === 'IMAGES' && data.fichier) {
+      image = data.fichier;
+    } else if (data.typeFichier === 'VIDEO' && data.fichier) {
+      const yid = extractYouTubeId(data.fichier);
+      if (yid) image = `https://img.youtube.com/vi/${yid}/hqdefault.jpg`;
+    }
+
+    // Document title
+    document.title = `${title} | BEES`;
+
+    // Open Graph
+    setMeta('property', 'og:title', title);
+    setMeta('property', 'og:description', description);
+    setMeta('property', 'og:image', image);
+    setMeta('property', 'og:url', url);
+    setMeta('property', 'og:type', 'article');
+
+    // Twitter
+    setMeta('name', 'twitter:card', 'summary_large_image');
+    setMeta('name', 'twitter:title', title);
+    setMeta('name', 'twitter:description', description);
+    setMeta('name', 'twitter:image', image);
+    setMeta('name', 'twitter:url', url);
+  }, [data]);
+
   return (
       <div >
         <Menu/>
