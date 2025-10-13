@@ -24,10 +24,10 @@ const Apropos = () => {
         <div className={ styles["container"]}>
             <div className={ styles["story-content"]}>
                 <div className={ styles["story-text"]}>
-                    <h2>Notre Histoire</h2>
-                    <p>BEES a été fondée en 2008 par un groupe de professionnels passionnés par l'aide humanitaire et le développement durable. Notre mission était simple mais ambitieuse : apporter des solutions concrètes aux défis auxquels font face les communautés les plus vulnérables d'Afrique.</p>
+                    <h2>Historique du BEES</h2>
+                    <p>Le Bureau d’Études Environnementales et Sociales (BEES) est une initiative fondée en 2022 à Uvira (Sud-Kivu) par d’anciens étudiants de l’Institut Supérieur de Développement Rural (ISDR), passionnés par le développement durable et la protection de l’environnement. Face aux effets du changement climatique et à la montée des conflits liés aux ressources naturelles en République Démocratique du Congo, ils ont créé le BEES pour offrir une expertise technique et sociale au service des communautés rurales.</p>
                     
-                    <p>Depuis nos débuts, nous avons évolué d'une petite équipe de 5 personnes à une organisation internationale comptant plus de 500 volontaires actifs dans 25 pays. Notre approche collaborative et notre engagement envers l'innovation nous ont permis de développer des programmes durables qui transforment véritablement des vies.</p>
+                    <p>BEES œuvre aujourd’hui pour une gestion responsable des ressources naturelles, une planification territoriale durable, et une cohésion sociale fondée sur la participation citoyenne. Grâce à son approche alliant sciences sociales et environnementales, le bureau accompagne les acteurs locaux dans la construction d’un avenir plus équitable, écologique et résilient.</p>
                     
                 
                 </div>
