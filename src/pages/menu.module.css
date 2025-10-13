@@ -92,6 +92,10 @@ section {
 
 nav.langs {
     overflow: visible;
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid var(--sep);
+    border-radius: 999px;
+    padding: 4px;
 }
 
 .lang-list {
@@ -100,7 +104,7 @@ nav.langs {
     padding: 0;
     display: flex;
     align-items: center;
-    gap: .25rem;
+    gap: .35rem;
     overflow: visible;
 }
 
@@ -112,22 +116,36 @@ nav.langs {
     display: inline-flex;
     align-items: center;
     gap: .45rem;
-    padding: .45rem .85rem;
+    padding: .4rem .8rem;
     border-radius: 999px;
     text-decoration: none;
     color: var(--fg);
-    font-weight: 400;
+    font-weight: 500;
     letter-spacing: .2px;
     outline: none;
+    border: 1px solid rgba(255, 255, 255, .16);
+    background: rgba(255, 255, 255, .03);
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+    transition: var(--transition);
 }
 
 .lang-link:hover {
-    background: rgba(255, 255, 255, .08);
+    background: rgba(255, 255, 255, .10);
+    border-color: rgba(255, 255, 255, .24);
 }
 
 .lang-link:focus-visible {
     box-shadow: 0 0 0 3px rgba(34, 211, 238, .5);
     background: rgba(255, 255, 255, .06);
+}
+
+.lang-link[aria-current="true"] {
+    /* Keep the same style as default to make all languages identical */
+    background: rgba(255, 255, 255, .03);
+    color: var(--fg);
+    border-color: rgba(255, 255, 255, .16);
+    box-shadow: none;
 }
 
 @media (max-width: 660px) {

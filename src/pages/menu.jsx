@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./menu.module.css";
 import { Link, useLocation } from "react-router-dom";
 
@@ -52,6 +52,62 @@ const Menu = () => {
     setToggleMobileMenu(!toggleMobileMenu);
   };
 
+  // On first mount, if a lang is present in URL, apply it automatically
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(location.search);
+      const urlLang = params.get('lang');
+      if (urlLang) {
+        // defer to let Google script initialize
+        setTimeout(() => switchLanguage(urlLang), 0);
+      }
+    } catch {}
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Trigger Google Translate and update the URL query param
+  const switchLanguage = (code) => {
+    try {
+      // 1) Update URL (?lang=code) while preserving other params
+      const p = new URLSearchParams(location.search);
+      p.set('lang', code);
+      const qs = p.toString();
+      const newUrl = `${location.pathname}${qs ? `?${qs}` : ''}`;
+      window.history.replaceState({}, '', newUrl);
+
+      // 2) Set Google Translate cookie for persistence
+      const setGTCookie = (lang) => {
+        const value = `/auto/${lang}`;
+        const domain = window.location.hostname;
+        // Set for current domain
+        document.cookie = `googtrans=${value};path=/;max-age=${60 * 60 * 24 * 365}`;
+        // Try with dot-domain as well
+        document.cookie = `googtrans=${value};path=/;domain=.${domain};max-age=${60 * 60 * 24 * 365}`;
+      };
+      setGTCookie(code);
+
+      // 3) Trigger Google Translate (retry if widget not ready yet)
+      let attempts = 0;
+      const applyLang = () => {
+        const select = document.querySelector('select.goog-te-combo');
+        if (select) {
+          select.value = code;
+          select.dispatchEvent(new Event('change'));
+        } else if (attempts < 15) { // retry up to ~3s total
+          attempts += 1;
+          setTimeout(applyLang, 200);
+        } else {
+          console.warn('Google Translate select not found, forcing reload to apply cookie.');
+          // As a last resort, reload so cookie takes effect
+          window.location.reload();
+        }
+      };
+      applyLang();
+    } catch (e) {
+      console.error('Erreur switchLanguage:', e);
+    }
+  };
+
   return (
     <div>
     {/* Langue */}
@@ -62,12 +118,13 @@ const Menu = () => {
                 <span className={styles.brand__dot} aria-hidden="true"></span> Bureau d'études environnementales et sociales
             </a>
 
-            <nav className={styles.langs} aria-label="Sélecteur de langue">
+            <nav className={`${styles.langs} notranslate`} aria-label="Sélecteur de langue" translate="no">
                 {(() => {
                   const languages = [
-                    { code: 'fr', label: 'Français', flag: '🇫🇷', hreflang: 'fr' },
-                    { code: 'en', label: 'English', flag: '🇬🇧', hreflang: 'en' },
-                    { code: 'es', label: 'Español', flag: '🇪🇸', hreflang: 'es' },
+                    { code: 'fr', label: 'FR', flag: '🇫🇷', hreflang: 'fr' },
+                    { code: 'en', label: 'EN', flag: '🇬🇧', hreflang: 'en' },
+                    { code: 'es', label: 'ES', flag: '🇪🇸', hreflang: 'es' },
+                    { code: 'de', label: 'DE', flag: '🇩🇪', hreflang: 'de' },
                   ];
                   const params = new URLSearchParams(location.search);
                   const currentLang = params.get('lang') || 'fr';
@@ -80,20 +137,20 @@ const Menu = () => {
                   return (
                     <ul className={styles["lang-list"]} role="list">
                       {languages.map((lng) => (
-                        <li className={styles["lang-item"]} key={lng.code}>
-                          <a
+                        <li className={styles["lang-item"]} key={lng.code} translate="no">
+                          <button
+                            type="button"
                             className={styles["lang-link"]}
-                            href={buildHref(lng.code)}
+                            onClick={() => switchLanguage(lng.code)}
                             lang={lng.hreflang}
-                            hrefLang={lng.hreflang}
-                            rel="alternate"
                             aria-current={currentLang === lng.code ? 'true' : undefined}
                             title={`${lng.label}`}
+                            translate="no"
                           >
                             <span aria-hidden="true">{lng.flag}</span>
                             {' '}
-                            <strong>{lng.label}</strong>
-                          </a>
+                            <strong className="notranslate">{lng.label}</strong>
+                          </button>
                         </li>
                       ))}
                     </ul>

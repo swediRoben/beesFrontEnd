@@ -72,7 +72,7 @@ const Contact = () => {
                             </div>
                             <div className={styles["contact-details"]}>
                                 <h3>Email</h3>
-                                <p>bees@asbl.org</p>
+                                <p>beesrdc@asbl.org</p>
                             </div>
                         </div>
 
