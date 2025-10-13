@@ -199,7 +199,8 @@ useEffect(() => {
                              {element.typeFichier === "PDF"? ( 
                             <a href={element.fichier}  className={styles["link-arrow"]}>Télécharger →</a>
                                 ): ( 
-                            <Link to="/plus" state={{ data: element }}  className={styles["link-arrow"]}>Voir plus →</Link>
+                            // Preserve state for fast nav, include URL params for share/deep-linking
+                            <Link to={`/plus?id=${element.id}&type=projet`} state={{ data: element }}  className={styles["link-arrow"]}>Voir plus →</Link>
                                 )} 
                         </div>
                     </div>

@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import styles from "./menu.module.css";
 import "./plus.style.css"; 
 import Menu from "./menu.jsx"
 import Fooler from "./fooler.jsx";
 import { useLocation } from "react-router-dom"; 
+import { getPublicationById } from "../services/publicationServices";
+import { getProjetById } from "../services/projectServices.jsx";
 
 const Plus = () => { 
   const location = useLocation();
-  const { data } = location.state || {};
+  const stateData = (location.state && location.state.data) ? location.state.data : null;
+  const [data, setData] = useState(stateData);
+  const search = new URLSearchParams(location.search);
+  const urlId = search.get('id');
+  const urlType = search.get('type');
   const copierLien = () => {
     const url = window.location.href;
     navigator.clipboard.writeText(url).then(() => {
@@ -40,6 +46,24 @@ const Plus = () => {
       return null;
     };
   
+
+  useEffect(() => {
+    const fetchById = async () => {
+      if (data || !urlId || !urlType) return;
+      try {
+        if (urlType === 'publication') {
+          const res = await getPublicationById(urlId);
+          setData(res);
+        } else if (urlType === 'projet' || urlType === 'project') {
+          const res = await getProjetById(urlId);
+          setData(res);
+        }
+      } catch (e) {
+        console.error('Erreur chargement contenu:', e);
+      }
+    };
+    fetchById();
+  }, [urlId, urlType, data]);
 
   return (
       <div >
@@ -84,7 +108,7 @@ const Plus = () => {
           <div className="share-buttons">
             <span>Partager :</span>
             <a
-              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(data.title || "")}`}
               target="_blank"
               rel="noopener noreferrer"
               className="share-btn fb"
@@ -92,7 +116,7 @@ const Plus = () => {
               Facebook
             </a>
             <a
-              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}`}
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(data.title || "")}&url=${encodeURIComponent(window.location.href)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="share-btn tw"
@@ -100,7 +124,7 @@ const Plus = () => {
               Twitter
             </a>
             <a
-              href={`https://wa.me/?text=${encodeURIComponent(window.location.href)}`}
+              href={`https://wa.me/?text=${encodeURIComponent(`${data.title || ""} - ${window.location.href}`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="share-btn wa"
