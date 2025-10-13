@@ -139,6 +139,30 @@ const {
     });
   }
 
+    // Extract YouTube video ID from various URL formats
+    const extractYouTubeId = (url) => {
+      if (!url) return null;
+      try {
+        const u = new URL(url);
+        if (u.hostname.includes('youtu.be')) {
+          // https://youtu.be/VIDEO_ID
+          return u.pathname.replace('/', '').split('?')[0];
+        }
+        if (u.hostname.includes('youtube.com')) {
+          // https://www.youtube.com/watch?v=VIDEO_ID
+          if (u.searchParams.get('v')) return u.searchParams.get('v');
+          // https://www.youtube.com/embed/VIDEO_ID or /shorts/VIDEO_ID
+          const parts = u.pathname.split('/').filter(Boolean);
+          const idx = parts.findIndex(p => p === 'embed' || p === 'shorts' || p === 'v');
+          if (idx !== -1 && parts[idx + 1]) return parts[idx + 1];
+        }
+      } catch (_) {
+        // Not a valid URL, maybe a raw ID passed already
+        if (typeof url === 'string' && url.length >= 10 && url.length <= 64) return url;
+      }
+      return null;
+    };
+
   const formatDate = (dateString) => {
   const date = new Date(dateString);
   return date.toLocaleDateString("fr-FR", {
@@ -359,7 +383,7 @@ const {
 
         <div className="form-group">
           <label htmlFor="url file">Fichier (URL)</label>
-          <input type="url" {...registerProjet("fichier")} placeholder="Entrez le url..." />
+          <input type="text" {...registerProjet("fichier")} placeholder="Entrez le url..." />
         </div>
 
         <div className="form-group">
@@ -454,8 +478,8 @@ const {
         </div>
 
         <div className="form-group">
-          <label htmlFor="url">Fichier (URL)</label>
-          <input type="url" {...registerPublication("fichier")} placeholder="Entrez le url..." />
+          <label htmlFor="text">Fichier (URL)</label>
+          <input type="text" {...registerPublication("fichier")} placeholder="Entrez le url..." />
         </div>
 
         <div className="form-group">
@@ -892,18 +916,21 @@ const {
                   />
                 )}
 
-                {element.typeFichier === "VIDEO" && (
 
-                  <iframe  
-                   src={element.fichier}
-                   title={element.title}
-                   frameborder="0" 
-                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen>
-                
-                   </iframe> 
-                   
-                )}
+                {element.typeFichier === "VIDEO" && (() => {
+                  const yid = extractYouTubeId(element.fichier);
+                  const src = yid ? `https://www.youtube.com/embed/${yid}` : element.fichier;
+                  return (
+                    <iframe
+                      src={src}
+                      title={element.title}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    />
+                  );
+                })()} 
 
                 {element.typeFichier === "PDF" && (
                   <a href={element.fichier} target="_blank" rel="noopener noreferrer">
