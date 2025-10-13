@@ -248,7 +248,7 @@ const Acceuil = () => {
       {/* Call to action */}
       <section className={styles.cta}>
         <div className={styles.container}>
-          <h2>Rejoignez Notre Mission</h2>
+          <h2>Rejoignez Notre Vision</h2>
           <p>
              Devenir un acteur clé en RDC dans la recherche, la formation et l’accompagnement des communautés et
               institutions pour une gestion durable de l’environnement,
