@@ -15,7 +15,7 @@ const Apropos = () => {
   <div className={styles["page-header-back"]}></div>
   <div className={styles["container"]}>
     <h1>À Propos de BEES</h1>
-    <p>Depuis 2010, nous œuvrons pour un monde plus juste et équitable</p>
+    <p>Depuis 2022, nous œuvrons pour un monde plus juste et équitable</p>
   </div>
 </section>
 
