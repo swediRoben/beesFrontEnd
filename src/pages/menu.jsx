@@ -59,7 +59,7 @@ const Menu = () => {
         <header className={styles.topbar}>
         <div className={styles.topbar__inner}>
             <a className={styles.brand} href="#" aria-label="Accueil">
-                <span className={styles.brand__dot} aria-hidden="true"></span> Bureau d'études environnementale et sociales des environnements
+                <span className={styles.brand__dot} aria-hidden="true"></span> Bureau d'études environnementales et sociales
             </a>
 
             <nav className={styles.langs} aria-label="Sélecteur de langue">
