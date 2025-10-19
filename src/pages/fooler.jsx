@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from "./menu.module.css";
+import { Link } from "react-router-dom";
 
 const Fooler = () => {
     return (
@@ -33,22 +34,22 @@ const Fooler = () => {
             <div className={styles["footer-section"]}>
               <h3>Liens Rapides</h3>
               <ul>
-                <li><a href="projets.html">Nos Projets</a></li>
-                <li><a href="#">Faire un Don</a></li>
-                <li><a href="#">Devenir Bénévole</a></li>
-                <li><a href="#">Partenariats</a></li>
-                <li><a href="#">Transparence</a></li>
+                <li><Link to="/projet">Nos Projets</Link></li>
+                <li><Link to="/contact">Faire un Don</Link></li>
+                <li><Link to="/contact">Devenir Bénévole</Link></li>
+                <li><Link to="/contact">Partenariats</Link></li>
+                <li><Link to="/contact">Transparence</Link></li>
               </ul>
             </div>
 
             <div className={styles["footer-section"]}>
               <h3>Ressources</h3>
               <ul>
-                <li><a href="publications.html">Publications</a></li>
-                <li><a href="#">Rapports Annuels</a></li>
-                <li><a href="#">Actualités</a></li>
-                <li><a href="#">Médiathèque</a></li>
-                <li><a href="#">FAQ</a></li>
+                <li><Link to="/pub">Publications</Link></li>
+                <li><Link to="/pub">Rapports Annuels</Link></li>
+                <li><Link to="/pub">Actualités</Link></li>
+                <li><Link to="/pub">Médiathèque</Link></li>
+                <li><Link to="/apropos">FAQ</Link></li>
               </ul>
             </div>
 
@@ -70,7 +71,7 @@ const Fooler = () => {
                 </div>
                 <div className={styles["contact-item"]}>
                   <span className={styles["contact-icon"]}>✉️</span>
-                  <span>bees@asbl.org</span>
+                  <span>direction@beesasbl.org</span>
                 </div>
               </div>
             </div>

@@ -48,11 +48,13 @@ export const createPublication = async (data) => {
 
 // ✅ Mettre à jour une publication
 export const updatePublication = async (id, data) => {
+  console.log("data",data);
   try {
     const token = sessionStorage.getItem('token');
     const response = await axios.put(`${API_URL}/${id}`, data,{
         headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            "Content-Type":"multipart/form-data"
         }
     });
     return response.data;

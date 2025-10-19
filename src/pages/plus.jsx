@@ -6,6 +6,7 @@ import Fooler from "./fooler.jsx";
 import { useLocation } from "react-router-dom"; 
 import { getPublicationById } from "../services/publicationServices";
 import { getProjetById } from "../services/projectServices.jsx";
+import {API_URL} from "../services/imageService"
 
 const Plus = () => { 
   const location = useLocation();
@@ -120,7 +121,7 @@ const Plus = () => {
         
             {data.typeFichier === "IMAGES" && (
                   <img
-                    src={data.fichier}
+                    src={`${API_URL}/${data.fichier}`}
                     alt={data.title}
                    className="detail-image" 
                   />

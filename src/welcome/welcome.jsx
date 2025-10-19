@@ -5,6 +5,7 @@ import {createPublication,deletePublication,getAllPublications,updatePublication
 import {createProjet,deleteProjet,getAllProjets,updateProjet} from "../services/projectServices"
 import {create,deleteUsers,getAllUsers} from "../services/userServices"
 import {createDonation,deleteDonation,updateDonation,getDonations} from "../services/donationService"
+import {API_URL} from "../services/imageService"
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast"; 
@@ -118,7 +119,8 @@ const {
       status:null,
       fichier:null, 
       typeFichier:null,
-      contenu:null
+      contenu:null,
+      urlVideo:null
     }); 
 
     resetDonation({
@@ -195,23 +197,43 @@ const {
     };
 
     
-    // Soumission publication
-    const onSubmitPublication = async (data) => {
-      try {
-       if (!data.id) { 
-            await createPublication(data);
-          } else {
-            await updatePublication(data.id, data);
-          }
-         toast.success("Operation effectuée avec succès !!");
-         resetPublication();
-         dataPublication(1,10)
-         closeModal("publicationModal");
-      } catch (error) {
-        console.error("Erreur création publication:", error);
-        toast.error("Erreur lors de l'operation'.",{style:{backgroundColor:"red",color:"white"}}); 
+const onSubmitPublication = async (data) => {
+  try {
+    const formData = new FormData();
+
+    formData.append("title", data.title);
+    formData.append("contenu", data.contenu);
+    formData.append("type", data.type);
+    formData.append("typeFichier", data.typeFichier);
+
+    if (data.typeFichier === "VIDEO") {
+      // vidéo = URL
+      formData.append("urlVideo", data.urlVideo);
+    } else {
+      // image ou pdf = fichier
+      if (data.fichier && data.fichier[0]) {
+        formData.append("fichier", data.fichier[0]); // data.fichier est un FileList
       }
-    };
+    }
+
+    if (!data.id) {
+      await createPublication(formData); // côté back-end attend FormData
+    } else {
+      await updatePublication(data.id, formData);
+    }
+
+    toast.success("Opération effectuée avec succès !");
+    resetPublication();
+    dataPublication(1, 10);
+    closeModal("publicationModal");
+  } catch (error) {
+    console.error("Erreur création publication:", error);
+    toast.error("Erreur lors de l'opération.", { style: { backgroundColor: "red", color: "white" } });
+  }
+};
+
+
+    const [selectedTypeFichierPublication, setSelectedTypeFichierPublication] = useState("IMAGES");
 
     // Soumission publication
     const onSubmitUser = async (data) => {
@@ -273,7 +295,8 @@ const {
       id:element.id,
       title:element.title,
       type:element.type,
-      status:element.status,
+      status:element.status, 
+      urlVideo:element.fichier,
       fichier:element.fichier, 
       typeFichier:element.typeFichier,
       contenu:element.contenu
@@ -471,16 +494,31 @@ const {
         <div className="form-group">
           <label htmlFor="type file">Type de fichier :</label>
           <div style={{ display: "flex", gap: "20px" }}>
-            <label><input type="radio" {...registerPublication("typeFichier")} value="IMAGES" /> Image</label>
-            <label><input type="radio" {...registerPublication("typeFichier")} value="VIDEO" /> Vidéo</label>
-            <label><input type="radio" {...registerPublication("typeFichier")} value="PDF" /> PDF</label>
+            <label><input type="radio" {...registerPublication("typeFichier")} onChange={() => setSelectedTypeFichierPublication("IMAGES")} value="IMAGES" /> Image</label>
+            <label><input type="radio" {...registerPublication("typeFichier")} onChange={() => setSelectedTypeFichierPublication("VIDEO")} value="VIDEO" /> Vidéo</label>
+            <label><input type="radio" {...registerPublication("typeFichier")} onChange={() => setSelectedTypeFichierPublication("PDF")} value="PDF" /> PDF</label>
           </div>
         </div>
 
-        <div className="form-group">
+          <div className="form-group">
+              {selectedTypeFichierPublication === "VIDEO" ? (
+                <>
+                  <label htmlFor="urlVideo">URL de la vidéo</label> 
+                  <input type="text" {...registerPublication("urlVideo")} placeholder="Entrez l'URL de la vidéo..." />
+                </>
+              ) : (
+                <>
+                  <label htmlFor="file">Fichier</label>
+                  <input type="file" {...registerPublication("fichier")} />
+                </>
+              )}
+            </div>
+
+
+        {/* <div className="form-group">
           <label htmlFor="text">Fichier (URL)</label>
           <input type="text" {...registerPublication("fichier")} placeholder="Entrez le url..." />
-        </div>
+        </div> */}
 
         <div className="form-group">
           <label htmlFor="desc">Description</label>
@@ -910,7 +948,7 @@ const {
              <div className="publication-image">  
                 {element.typeFichier === "IMAGES" && (
                   <img
-                    src={element.fichier}
+                   src={`${API_URL}/${element.fichier}`}
                     alt={element.title}
                     
                   />
@@ -933,7 +971,7 @@ const {
                 })()} 
 
                 {element.typeFichier === "PDF" && (
-                  <a href={element.fichier} target="_blank" rel="noopener noreferrer">
+                  <a href={`${API_URL}/${element.fichier}`} target="_blank" rel="noopener noreferrer">
                     Ouvrir le PDF
                   </a>
                 )} 

@@ -4,6 +4,7 @@ import Menu from "./menu.jsx"
 import Fooler from "./fooler.jsx"; 
 import {getAllPublications} from "../services/publicationServices" 
 import { Link } from "react-router-dom";
+import {API_URL} from "../services/imageService"
 
 const Publication = () => { 
 
@@ -101,7 +102,7 @@ const Publication = () => {
                 <div className={styles["publication-card"]} data-category="report">
                  {element.typeFichier === "IMAGES" && (
                   <img
-                    src={element.fichier}
+                    src={`${API_URL}/${element.fichier}`}
                     alt={element.title}
                     loading="lazy"
                     
@@ -132,7 +133,7 @@ const Publication = () => {
                         <p>{element.contenu.slice(0,200)} ...</p>
                         <div className={styles["publication-footer"]}>
                              {element.typeFichier === "PDF"? ( 
-                            <a href={element.fichier}  className={styles["link-arrow"]}>Télécharger →</a>
+                            <a href={`${API_URL}/${element.fichier}`}  className={styles["link-arrow"]}>Télécharger →</a>
                                 ): ( 
                             // Preserve state for fast nav, but include URL params for share/deep-linking
                             <Link to={`/plus?id=${element.id}&type=publication`} state={{ data: element }}  className={styles["link-arrow"]}>Voir plus →</Link>
