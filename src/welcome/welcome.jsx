@@ -110,7 +110,8 @@ const {
       avencement:null,
       debut:new Date(null).toISOString().slice(0, 16),
       fin:new Date(null).toISOString().slice(0, 16),
-      contenu:null
+      contenu:null,
+      urlVideo:null
     });
     resetPublication({
       id:null,
@@ -176,14 +177,39 @@ const {
 
       // Soumission projet
     const onSubmitProjet = async (data) => {
-      try {
-        data.budget=parseFloat(data.budget) 
-        data.avencement=parseFloat(data.avencement)
-        data.beneficier=parseFloat(data.beneficier)
+      try { 
+       const budget=parseFloat(data.budget) 
+        const avencement=parseFloat(data.avencement)
+        const beneficier=parseFloat(data.beneficier) 
+
+        const formData = new FormData(); 
+        formData.append("title", data.title);
+        formData.append("contenu", data.contenu);
+        formData.append("status", data.status);
+        formData.append("devise", data.devise);
+        formData.append("typeFichier", data.typeFichier);
+        formData.append("debut", data.debut);
+        formData.append("fin", data.fin); 
+        formData.append("secteur", data.secteur);
+        formData.append("budget", budget);
+        formData.append("avencement", avencement);
+        formData.append("beneficier", beneficier);
+
+    if (data.typeFichier === "VIDEO") {
+      // vidéo = URL
+      formData.append("urlVideo", data.urlVideo);
+    } else {
+      // image ou pdf = fichier
+      if (data.fichier && data.fichier[0]) {
+        formData.append("fichier", data.fichier[0]); // data.fichier est un FileList
+      }
+    }
+
+
         if (!data.id) {
-          await createProjet(data);
+          await createProjet(formData);
         } else {
-          await updateProjet(data.id,data); 
+          await updateProjet(data.id,formData); 
         }
         toast.success("Operation effectuée avec succès !");
         resetProjet();
@@ -234,6 +260,7 @@ const onSubmitPublication = async (data) => {
 
 
     const [selectedTypeFichierPublication, setSelectedTypeFichierPublication] = useState("IMAGES");
+    const [selectedTypeFichierProjet, setSelectedTypeFichierProjet] = useState("IMAGES");
 
     // Soumission publication
     const onSubmitUser = async (data) => {
@@ -272,6 +299,7 @@ const onSubmitPublication = async (data) => {
 
     // Edit part 
   function projetUpdate(element) {
+    setSelectedTypeFichierProjet(element.typeFichier);
     resetProjet({
       id:element.id,
       title:element.title,
@@ -282,6 +310,7 @@ const onSubmitPublication = async (data) => {
       beneficier:element.beneficier,
       budget:element.budget,
       devise:element.devise,
+      urlVideo:element.fichier,
       avencement:element.avencement,
       debut:new Date(element.debut).toISOString().slice(0, 16),
       fin:new Date(element.fin).toISOString().slice(0, 16),
@@ -291,6 +320,7 @@ const onSubmitPublication = async (data) => {
   }
 
    function publicationUpdate(element) { 
+    setSelectedTypeFichierPublication(element.typeFichier);
     resetPublication({
       id:element.id,
       title:element.title,
@@ -344,17 +374,7 @@ const onSubmitPublication = async (data) => {
      await deleteDonation(id)
      dataDonation(1,10)
   }
- 
-//  function userUpdate(element) {
-  //    resetUser({
-//       id:element.id,
-//       username:element.username,
-//       email:element.email,
-//       role:element.role,
-//       password:element.password
-//     })
-//     setOpenedModal("userModal");
-//   }
+
 
   return (
     <>  
@@ -394,20 +414,29 @@ const onSubmitPublication = async (data) => {
             <option value="REALISER">REALISER</option>
           </select>
         </div>
-
+ 
         <div className="form-group">
-          <label htmlFor="file">Type de fichier :</label>
+          <label htmlFor="type file">Type de fichier :</label>
           <div style={{ display: "flex", gap: "20px" }}>
-            <label><input type="radio" {...registerProjet("typeFichier")} value="IMAGES" /> Image</label>
-            <label><input type="radio" {...registerProjet("typeFichier")} value="VIDEO" /> Vidéo</label>
-            <label><input type="radio" {...registerProjet("typeFichier")} value="PDF" /> PDF</label>
+            <label><input type="radio" {...registerPublication("typeFichier")} onChange={() => setSelectedTypeFichierProjet("IMAGES")} value="IMAGES" /> Image</label>
+            <label><input type="radio" {...registerPublication("typeFichier")} onChange={() => setSelectedTypeFichierProjet("VIDEO")} value="VIDEO" /> Vidéo</label>
+            <label><input type="radio" {...registerPublication("typeFichier")} onChange={() => setSelectedTypeFichierProjet("PDF")} value="PDF" /> PDF</label>
           </div>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="url file">Fichier (URL)</label>
-          <input type="text" {...registerProjet("fichier")} placeholder="Entrez le url..." />
-        </div>
+          <div className="form-group">
+              {selectedTypeFichierProjet === "VIDEO" ? (
+                <>
+                  <label htmlFor="urlVideo">URL de la vidéo</label> 
+                  <input type="text" {...registerPublication("urlVideo")} placeholder="Entrez l'URL de la vidéo..." />
+                </>
+              ) : (
+                <>
+                  <label htmlFor="file">Fichier</label>
+                  <input type="file" {...registerPublication("fichier")} />
+                </>
+              )}
+            </div>
 
         <div className="form-group">
           <label htmlFor="benef">Nombre de bénéficiaires</label>
@@ -513,12 +542,6 @@ const onSubmitPublication = async (data) => {
                 </>
               )}
             </div>
-
-
-        {/* <div className="form-group">
-          <label htmlFor="text">Fichier (URL)</label>
-          <input type="text" {...registerPublication("fichier")} placeholder="Entrez le url..." />
-        </div> */}
 
         <div className="form-group">
           <label htmlFor="desc">Description</label>

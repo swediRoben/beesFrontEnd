@@ -4,6 +4,7 @@ import Menu from "./menu.jsx"
 import Fooler from "./fooler.jsx";
 import {getAllProjets} from "../services/projectServices.jsx"
 import { Link } from "react-router-dom";
+import {API_URL} from "../services/imageService";
 
 const Projet = () => {
     const [datas, setDatas] = useState({data:[]});
@@ -132,7 +133,7 @@ useEffect(() => {
                 <div className={styles["publication-card"]} data-category="report">
                  {element.typeFichier === "IMAGES" && (
                   <img
-                    src={element.fichier}
+                    src={`${API_URL}/${element.fichier}`}
                     alt={element.title}
                     
                   />
@@ -197,7 +198,7 @@ useEffect(() => {
                         <br />
                         <div className={styles["publication-footer"]}>
                              {element.typeFichier === "PDF"? ( 
-                            <a href={element.fichier}  className={styles["link-arrow"]}>Télécharger →</a>
+                            <a href={`${API_URL}/${element.fichier}`}  className={styles["link-arrow"]}>Télécharger →</a>
                                 ): ( 
                             // Preserve state for fast nav, include URL params for share/deep-linking
                             <Link to={`/plus?id=${element.id}&type=projet`} state={{ data: element }}  className={styles["link-arrow"]}>Voir plus →</Link>

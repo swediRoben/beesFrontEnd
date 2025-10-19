@@ -4,7 +4,7 @@ import Menu from "./menu.jsx"
 import Fooler from "./fooler.jsx"; 
 import {getAllPublications} from "../services/publicationServices" 
 import { Link } from "react-router-dom";
-import {API_URL} from "../services/imageService"
+import {API_URL} from "../services/imageService";
 
 const Publication = () => { 
 

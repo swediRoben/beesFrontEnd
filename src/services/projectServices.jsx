@@ -57,7 +57,8 @@ export const updateProjet = async (id, data) => {
 
     const response = await axios.put(`${API_URL}/${id}`, data,{
         headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            "Content-Type":"multipart/form-data"
         }
     });
     return response.data;
