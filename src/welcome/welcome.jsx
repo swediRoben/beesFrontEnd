@@ -436,6 +436,7 @@ const onSubmitPublication = async (data) => {
                   <input type="file" {...registerProjet("fichier")} />
                 </>
               )}
+              
             </div>
 
         <div className="form-group">
