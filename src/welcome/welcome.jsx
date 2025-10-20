@@ -262,7 +262,7 @@ const onSubmitPublication = async (data) => {
     const [selectedTypeFichierPublication, setSelectedTypeFichierPublication] = useState("IMAGES");
     const [selectedTypeFichierProjet, setSelectedTypeFichierProjet] = useState("IMAGES");
 
-    // Soumission publication
+    // Soumission publications
     const onSubmitUser = async (data) => {
       try { 
         await create(data);  
