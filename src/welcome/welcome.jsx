@@ -418,9 +418,9 @@ const onSubmitPublication = async (data) => {
         <div className="form-group">
           <label htmlFor="type file">Type de fichier :</label>
           <div style={{ display: "flex", gap: "20px" }}>
-            <label><input type="radio" {...registerPublication("typeFichier")} onChange={() => setSelectedTypeFichierProjet("IMAGES")} value="IMAGES" /> Image</label>
-            <label><input type="radio" {...registerPublication("typeFichier")} onChange={() => setSelectedTypeFichierProjet("VIDEO")} value="VIDEO" /> Vidéo</label>
-            <label><input type="radio" {...registerPublication("typeFichier")} onChange={() => setSelectedTypeFichierProjet("PDF")} value="PDF" /> PDF</label>
+            <label><input type="radio" {...registerProjet("typeFichier")} onChange={() => setSelectedTypeFichierProjet("IMAGES")} value="IMAGES" /> Image</label>
+            <label><input type="radio" {...registerProjet("typeFichier")} onChange={() => setSelectedTypeFichierProjet("VIDEO")} value="VIDEO" /> Vidéo</label>
+            <label><input type="radio" {...registerProjet("typeFichier")} onChange={() => setSelectedTypeFichierProjet("PDF")} value="PDF" /> PDF</label>
           </div>
         </div>
 
@@ -428,12 +428,12 @@ const onSubmitPublication = async (data) => {
               {selectedTypeFichierProjet === "VIDEO" ? (
                 <>
                   <label htmlFor="urlVideo">URL de la vidéo</label> 
-                  <input type="text" {...registerPublication("urlVideo")} placeholder="Entrez l'URL de la vidéo..." />
+                  <input type="text" {...registerProjet("urlVideo")} placeholder="Entrez l'URL de la vidéo..." />
                 </>
               ) : (
                 <>
                   <label htmlFor="file">Fichier</label>
-                  <input type="file" {...registerPublication("fichier")} />
+                  <input type="file" {...registerProjet("fichier")} />
                 </>
               )}
             </div>
